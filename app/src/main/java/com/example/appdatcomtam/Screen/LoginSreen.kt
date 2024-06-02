@@ -12,7 +12,7 @@ fun LoginScreen(navController: NavController? = null) {
     Text(
         text = "Chào mừng đến với đăng nhập",
 
-
     )
+    Text(text = "Tạm biệt bạn")
 
 }
