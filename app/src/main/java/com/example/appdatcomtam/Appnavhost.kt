@@ -37,7 +37,7 @@ fun AppNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = ROUTE_NAME.welcome.name
+        startDestination = ROUTE_NAME.home.name
     ) {
         composable(ROUTE_NAME.welcome.name) {
             WelcomeScreen(navController)
