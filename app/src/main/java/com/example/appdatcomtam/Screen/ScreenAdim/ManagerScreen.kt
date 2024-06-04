@@ -1,6 +1,7 @@
 package com.example.appdatcomtam.Screen.ScreenAdim
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -18,6 +19,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.appdatcomtam.R
+import com.example.appdatcomtam.ROUTE_NAME
 
 @Composable
 fun ManagerScreen(navController: NavController? = null) {
@@ -31,6 +33,7 @@ fun ManagerScreen(navController: NavController? = null) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp)
+                .clickable { navController?.navigate("${ROUTE_NAME.managerDish.name}") }
         ) {
             Image(
                 painter = painterResource(id = R.drawable.logo_splash),
@@ -42,7 +45,7 @@ fun ManagerScreen(navController: NavController? = null) {
             Text(
                 text = "Quản lý Món Ăn",
                 style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(10.dp)
+                modifier = Modifier.padding(start = 80.dp, top = 10.dp)
             )
         }
 
@@ -64,7 +67,7 @@ fun ManagerScreen(navController: NavController? = null) {
             Text(
                 text = "Quản lý Loại Món Ăn",
                 style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(start = 50.dp)
+                modifier = Modifier.padding(start = 80.dp, top = 10.dp)
             )
         }
     }
