@@ -7,7 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 
 import androidx.navigation.compose.rememberNavController
-
+import com.example.appdatcomtam.Screen.SignUpScreen
 
 
 class MainControl : ComponentActivity() {
@@ -15,7 +15,7 @@ class MainControl : ComponentActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContent {
-           MyApp()
+          MyApp()
         }
     }
 
