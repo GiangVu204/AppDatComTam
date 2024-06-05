@@ -12,6 +12,12 @@ import com.example.appdatcomtam.Screen.MenuScreen
 import com.example.appdatcomtam.Screen.ScreenAdim.ManageDishScreen
 import com.example.appdatcomtam.Screen.ScreenAdim.ManagerCategoriesScreen
 import com.example.appdatcomtam.Screen.ScreenAdim.ManagerScreen
+import com.example.appdatcomtam.Screen.ScreenAdim.QLLoaiSP.AddLoaiSPScreen
+import com.example.appdatcomtam.Screen.ScreenAdim.QLLoaiSP.DeleteLoaiSPScreen
+import com.example.appdatcomtam.Screen.ScreenAdim.QLLoaiSP.UpdateLoaiSPScreen
+import com.example.appdatcomtam.Screen.ScreenAdim.QLSanPham.AddMonAnScreen
+import com.example.appdatcomtam.Screen.ScreenAdim.QLSanPham.DeleteMonAnScreen
+import com.example.appdatcomtam.Screen.ScreenAdim.QLSanPham.UpdateMonAnScreen
 import com.example.appdatcomtam.Screen.ScreenAdim.ShowBillScreen
 import com.example.appdatcomtam.Screen.SignUpScreen
 import com.example.appdatcomtam.Screen.UserScreen
@@ -28,7 +34,13 @@ enum class ROUTE_NAME {
     showbill,
     manager,
     managerCategories,
-    managerDish
+    managerDish,
+    addloaisp,
+    updateloaisp,
+    deleteloaisp,
+    addmonan,
+    updatemonam,
+    deletemonan
 }
 
 @Composable
@@ -74,6 +86,24 @@ fun AppNavHost(
         }
         composable(ROUTE_NAME.managerDish.name) {
             ManageDishScreen(navController)
+        }
+        composable(ROUTE_NAME.addloaisp.name) {
+            AddLoaiSPScreen(navController)
+        }
+        composable(ROUTE_NAME.updateloaisp.name) {
+            UpdateLoaiSPScreen(navController)
+        }
+        composable(ROUTE_NAME.deleteloaisp.name) {
+            DeleteLoaiSPScreen(navController)
+        }
+        composable(ROUTE_NAME.addmonan.name) {
+            AddMonAnScreen(navController)
+        }
+        composable(ROUTE_NAME.updatemonam.name) {
+            UpdateMonAnScreen(navController)
+        }
+        composable(ROUTE_NAME.deletemonan.name) {
+            DeleteMonAnScreen(navController)
         }
 
 
