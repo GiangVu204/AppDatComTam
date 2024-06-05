@@ -1,6 +1,7 @@
 package com.example.appdatcomtam.Screen.ScreenAdim
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,6 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -23,16 +25,23 @@ import com.example.appdatcomtam.ROUTE_NAME
 
 @Composable
 fun ManagerScreen(navController: NavController? = null) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(100.dp)
+            .background(color = Color.Black)
+    )
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(top = 6.dp)
+            .background(Color(0xFF252121))
     ) {
         // Quản lý món ăn
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp)
+                .padding(top = 20.dp, start = 8.dp)
                 .clickable { navController?.navigate("${ROUTE_NAME.managerDish.name}") }
         ) {
             Image(
@@ -45,7 +54,8 @@ fun ManagerScreen(navController: NavController? = null) {
             Text(
                 text = "Quản lý Món Ăn",
                 style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(start = 80.dp, top = 10.dp)
+                modifier = Modifier.padding(start = 80.dp, top = 10.dp),
+                color = Color.White
             )
         }
 
@@ -55,7 +65,8 @@ fun ManagerScreen(navController: NavController? = null) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp)
+                .padding(start = 8.dp)
+                .clickable { navController?.navigate("${ROUTE_NAME.managerCategories.name}") }
         ) {
             Image(
                 painter = painterResource(id = R.drawable.logo_splash),
@@ -67,7 +78,8 @@ fun ManagerScreen(navController: NavController? = null) {
             Text(
                 text = "Quản lý Loại Món Ăn",
                 style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(start = 80.dp, top = 10.dp)
+                modifier = Modifier.padding(start = 80.dp, top = 10.dp) ,
+                color = Color.White
             )
         }
     }

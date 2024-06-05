@@ -49,63 +49,24 @@ import com.example.appdatcomtam.Screen.MyBottomAppBar
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ManageDishScreen(navController: NavController? = null) {
-    val navigationController = rememberNavController()
-    val selected = remember { mutableStateOf("home") }
-    val currentDestination by navigationController.currentBackStackEntryAsState()
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color("#312F2E".toColorInt()),
-                    titleContentColor = Color.White
-                ),
-                title = {
-                    Text(
-                        "Cum tứm đim ",
-                        color = Color.White,
-                        fontSize = 17.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                },
-                navigationIcon = {
-                    Image(
-                        painter = painterResource(id = R.drawable.logo_splash),
-                        contentDescription = "logo",
-                        modifier = Modifier
-                            .size(70.dp)
-                            .padding(10.dp)
-                    )
-                },
-
-            )
-        },
-        content = { innerPadding ->
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(100.dp)
-                    .background(color = Color.Black)
-            )
-            ManageDish(navController)
-        }
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(100.dp)
+            .background(color = Color.Black)
     )
-}
-
-
-@Composable
-fun ManageDish(navController: NavController? = null) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(top = 95.dp)
-            .background(color = Color("#252121".toColorInt()))
+            .padding(top = 6.dp)
+            .background(Color(0xFF252121))
     ) {
         // Quản lý món ăn
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp)
-//                .clickable { navController?.navigate("${ROUTE_NAME.managerDish.name}") }
+                .padding(top = 20.dp, start = 8.dp)
+                .clickable { navController?.navigate("${ROUTE_NAME.addmonan.name}") }
         ) {
             Image(
                 painter = painterResource(id = R.drawable.logo_splash),
@@ -116,22 +77,20 @@ fun ManageDish(navController: NavController? = null) {
             )
             Text(
                 text = "Thêm món ăn",
-                style = MaterialTheme.typography.titleLarge.copy(
-                    color = Color.White
-                ),
-                modifier = Modifier
-                    .padding(start = 80.dp, top = 10.dp)
-
+                style = MaterialTheme.typography.titleLarge,
+                modifier = Modifier.padding(start = 80.dp, top = 10.dp),
+                color = Color.White
             )
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Quản lý loại món ăn
+
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp)
+                .padding(start = 8.dp)
+                .clickable { navController?.navigate("${ROUTE_NAME.updatemonam.name}") }
         ) {
             Image(
                 painter = painterResource(id = R.drawable.logo_splash),
@@ -142,20 +101,19 @@ fun ManageDish(navController: NavController? = null) {
             )
             Text(
                 text = "Sửa món ăn",
-                style = MaterialTheme.typography.titleLarge.copy(
-                    color = Color.White
-                ),
-                modifier = Modifier.padding(start = 80.dp, top = 10.dp)
+                style = MaterialTheme.typography.titleLarge,
+                modifier = Modifier.padding(start = 80.dp, top = 10.dp) ,
+                color = Color.White
             )
         }
-
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Quản lý loại món ăn
+
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp)
+                .padding(start = 8.dp)
+                .clickable { navController?.navigate("${ROUTE_NAME.deletemonan.name}") }
         ) {
             Image(
                 painter = painterResource(id = R.drawable.logo_splash),
@@ -166,37 +124,11 @@ fun ManageDish(navController: NavController? = null) {
             )
             Text(
                 text = "Xóa món ăn",
-                style = MaterialTheme.typography.titleLarge.copy(
-                    color = Color.White
-                ),
-                modifier = Modifier.padding(start = 80.dp, top = 10.dp)
+                style = MaterialTheme.typography.titleLarge,
+                modifier = Modifier.padding(start = 80.dp, top = 10.dp) ,
+                color = Color.White
             )
         }
     }
 }
 
-
-//@Composable
-//fun TopBar () {
-//    Box(
-//        modifier = Modifier
-//    ) {
-//        Column (
-//            modifier = Modifier
-//
-//        ) {
-//            ImageTopBar(Image = R.drawable.logo_splash)
-//
-//        }
-//    }
-//}
-//
-//
-//@Composable
-//fun ImageTopBar(Image: Int) {
-//    Image(
-//        painter = painterResource(id = Image),
-//        contentDescription = null,
-//        modifier = Modifier
-//    )
-//}
