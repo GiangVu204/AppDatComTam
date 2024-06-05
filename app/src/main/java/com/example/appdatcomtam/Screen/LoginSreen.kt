@@ -84,7 +84,7 @@ fun LoginScreen(navController: NavController? = null) {
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Button(
-                        onClick = { navController?.navigate("HomeAdmin") },
+                        onClick = { navController?.navigate("Home") },
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(vertical = 20.dp),
@@ -119,7 +119,8 @@ fun LoginScreen(navController: NavController? = null) {
         NavHost(navController = navController, startDestination = "login") {
             composable("login") { LoginScreen(navController) }
             composable("signup") { SignUpScreen(navController) }
-            composable("HomeAdmin"){ HomeAdminScreen(navController)}
+            composable("HomeAdmin") { HomeAdminScreen(navController) }
+            composable("Home") { HomeScreen(navController) }
         }
     }
 }
