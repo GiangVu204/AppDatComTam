@@ -1,8 +1,10 @@
 package com.example.appdatcomtam.Screen.ScreenAdim.QLLoaiSP
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,30 +13,28 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material3.Divider
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -42,12 +42,13 @@ import androidx.core.graphics.toColorInt
 import androidx.navigation.NavController
 import androidx.room.Room
 import com.example.appdatcomtam.LoaiMonAnDB
+import com.example.appdatcomtam.Model.LoaiMonAnModel
 import com.example.appdatcomtam.R
 import com.example.appdatcomtam.ROUTE_NAME
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun UpdateLoaiSPScreen(navController: NavController? = null) {
+fun DialogSuaSP(navController: NavController? = null, loaiMonAn: LoaiMonAnModel? = null) {
     val context = LocalContext.current
 
     // Khởi tạo cơ sở dữ liệu LoaiMonAnDB
@@ -55,11 +56,10 @@ fun UpdateLoaiSPScreen(navController: NavController? = null) {
         context,
         LoaiMonAnDB::class.java, "student-db"
     ).allowMainThreadQueries().build()
-    
-    var listStudents by remember {
-        mutableStateOf(db.loaiMonAnDao().getAll())
-    }
 
+
+    // Lưu trạng thái của EditText
+    val tenLoaiMonAnState = remember { mutableStateOf(loaiMonAn?.tenLoaiMonAn ?: "") }
     Column {
         TopAppBar(
             colors = TopAppBarDefaults.topAppBarColors(
@@ -107,59 +107,68 @@ fun UpdateLoaiSPScreen(navController: NavController? = null) {
                 .height(6.dp)
                 .background(color = Color.Black)
         )
-
-        Box(
+        Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color(0xFF252121))
+                .background(Color(0xFF252121)),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            LazyColumn {
-                items(listStudents) { item ->
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 8.dp, horizontal = 16.dp)
-                            .clip(RoundedCornerShape(8.dp))
-                            .background(Color(0xFF2F2D2D))
-                            .clickable {
-                                // Xử lý sự kiện khi nhấn vào mục sản phẩm
-                            }
-                    ) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(8.dp, top = 28.dp, bottom = 28.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .padding(start = 15.dp),
-                                text = item.uid.toString(),
-                                color = Color.White
-                            )
-                            Text(
-                                modifier = Modifier.weight(2f),
-                                text = item.tenLoaiMonAn.orEmpty(),
-                                color = Color.White,
-                                fontSize = 19.sp
-                            )
-                            Icon(
-                                imageVector = Icons.Filled.Edit,
-                                contentDescription = "Edit",
-                                modifier = Modifier
-                                    .padding(start = 8.dp)
-                                    .weight(1f)
-                                    .clickable {
-                                        // Điều hướng đến AddLoaiSPScreen và truyền dữ liệu
-                                        navController?.navigate("dialogsualoaimonan/${item.uid}")
-                                    },
-                                Color.White
-                            )
+
+
+
+            OutlinedTextField(
+                label = { Text("Nhập loại món ăn", color = Color(0xFFFFB703)) },
+                value = tenLoaiMonAnState.value,
+                onValueChange = { tenLoaiMonAnState.value = it },
+                modifier = Modifier
+                    .fillMaxWidth(0.8f)
+                    .height(60.dp),
+                textStyle = TextStyle(color = Color.Black),
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    focusedBorderColor = Color.White,
+                    unfocusedBorderColor = Color.White,
+                    cursorColor = Color.Black,
+                    containerColor = Color.White,
+                    focusedLabelColor = Color.Black,
+                    unfocusedLabelColor = Color.Black
+                ),
+                shape = RoundedCornerShape(8.dp),
+                singleLine = true
+            )
+
+            // Nút Button để thêm loại món ăn
+            Button(
+                onClick = {
+                    val tenLoaiMonAn = tenLoaiMonAnState.value
+                    if (tenLoaiMonAn.isNotEmpty()) {
+                        loaiMonAn?.let {
+                            // Cập nhật loại món ăn
+                            it.tenLoaiMonAn = tenLoaiMonAn
+                            db.loaiMonAnDao().update(it)
+                            Toast.makeText(context, "Đã cập nhật loại món ăn", Toast.LENGTH_SHORT).show()
                         }
+                        // Chuyển hướng đến màn hình quản lý loại món ăn
+                        navController?.navigateUp()
+                    } else {
+                        Toast.makeText(context, "Vui lòng nhập loại món ăn", Toast.LENGTH_SHORT).show()
                     }
-                }
+                },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFFFFB703),
+                    contentColor = Color.White
+                ),
+                modifier = Modifier
+                    .fillMaxWidth(0.4f)
+                    .height(50.dp)
+                    .padding(top = 16.dp)
+                    .border(2.dp, Color(0xFFFFB703), RoundedCornerShape(8.dp)),
+                shape = RoundedCornerShape(8.dp)
+
+            ) {
+                Text("Sửa")
             }
+
         }
     }
 }
