@@ -2,9 +2,13 @@ package com.example.appdatcomtam
 
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
+import androidx.room.Room
 import com.example.appdatcomtam.Screen.ScreenAdim.DetailDonDangScreen
 import com.example.appdatcomtam.Screen.ScreenAdim.HomeAdminScreen
 import com.example.appdatcomtam.Screen.HomeScreen
@@ -14,6 +18,7 @@ import com.example.appdatcomtam.Screen.ScreenAdim.ManagerCategoriesScreen
 import com.example.appdatcomtam.Screen.ScreenAdim.ManagerScreen
 import com.example.appdatcomtam.Screen.ScreenAdim.QLLoaiSP.AddLoaiSPScreen
 import com.example.appdatcomtam.Screen.ScreenAdim.QLLoaiSP.DeleteLoaiSPScreen
+import com.example.appdatcomtam.Screen.ScreenAdim.QLLoaiSP.DialogSuaSP
 import com.example.appdatcomtam.Screen.ScreenAdim.QLLoaiSP.UpdateLoaiSPScreen
 import com.example.appdatcomtam.Screen.ScreenAdim.QLSanPham.AddMonAnScreen
 import com.example.appdatcomtam.Screen.ScreenAdim.QLSanPham.DeleteMonAnScreen
@@ -40,13 +45,19 @@ enum class ROUTE_NAME {
     deleteloaisp,
     addmonan,
     updatemonam,
-    deletemonan
+    deletemonan,
+    dialogsualoaimonan
 }
 
 @Composable
 fun AppNavHost(
     navController: NavHostController
 ) {
+    val context = LocalContext.current
+    val db = Room.databaseBuilder(
+        context,
+        LoaiMonAnDB::class.java, "student-db"
+    ).allowMainThreadQueries().build()
     NavHost(
         navController = navController,
         startDestination = ROUTE_NAME.home.name
@@ -89,6 +100,11 @@ fun AppNavHost(
         }
         composable(ROUTE_NAME.addloaisp.name) {
             AddLoaiSPScreen(navController)
+        }
+        composable("${ROUTE_NAME.dialogsualoaimonan.name}/{uid}", arguments = listOf(navArgument("uid") { type = NavType.IntType })) { backStackEntry ->
+            val uid = backStackEntry.arguments?.getInt("uid")
+            val item = db.loaiMonAnDao().loadAllByIds(intArrayOf(uid ?: 0)).firstOrNull()
+            DialogSuaSP(navController, loaiMonAn = item)
         }
         composable(ROUTE_NAME.updateloaisp.name) {
             UpdateLoaiSPScreen(navController)
