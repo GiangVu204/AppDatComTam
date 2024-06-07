@@ -60,7 +60,7 @@ fun AppNavHost(
     ).allowMainThreadQueries().build()
     NavHost(
         navController = navController,
-        startDestination = ROUTE_NAME.home.name
+        startDestination = ROUTE_NAME.welcome.name
     ) {
         composable(ROUTE_NAME.welcome.name) {
             WelcomeScreen(navController)
