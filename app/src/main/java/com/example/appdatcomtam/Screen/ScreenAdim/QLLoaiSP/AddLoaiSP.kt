@@ -58,7 +58,7 @@ fun AddLoaiSPScreen(navController: NavController? = null) {
     // Khởi tạo cơ sở dữ liệu LoaiMonAnDB
     val db = Room.databaseBuilder(
         context,
-        LoaiMonAnDB::class.java, "student-db"
+        LoaiMonAnDB::class.java, "Com_Tam_1"
     ).allowMainThreadQueries().build()
 
 
@@ -159,7 +159,7 @@ Column {
                     // Hiển thị thông báo đã thêm
                     Toast.makeText(context, "Đã thêm loại món ăn", Toast.LENGTH_SHORT).show()
                     // Sau khi thêm, chuyển hướng đến màn hình khác
-                    navController?.navigate(ROUTE_NAME.managerCategories.name)
+                    navController?.navigate(ROUTE_NAME.updateloaisp.name)
                 } else {
                     // Hiển thị thông báo yêu cầu nhập loại món ăn
                     Toast.makeText(context, "Vui lòng nhập loại món ăn", Toast.LENGTH_SHORT).show()

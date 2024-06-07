@@ -27,7 +27,7 @@ import kotlinx.coroutines.delay
 fun WelcomeScreen(navController: NavController? = null) {
     LaunchedEffect(key1 = true) {
         // Chờ 3 giây trước khi chuyển sang màn hình khác
-        delay(6000)
+        delay(3000)
         navController?.navigate("${ROUTE_NAME.login.name}")
     }
 

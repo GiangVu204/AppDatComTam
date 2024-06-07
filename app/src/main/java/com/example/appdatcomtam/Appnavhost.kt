@@ -22,6 +22,7 @@ import com.example.appdatcomtam.Screen.ScreenAdim.QLLoaiSP.DialogSuaSP
 import com.example.appdatcomtam.Screen.ScreenAdim.QLLoaiSP.UpdateLoaiSPScreen
 import com.example.appdatcomtam.Screen.ScreenAdim.QLSanPham.AddMonAnScreen
 import com.example.appdatcomtam.Screen.ScreenAdim.QLSanPham.DeleteMonAnScreen
+import com.example.appdatcomtam.Screen.ScreenAdim.QLSanPham.DialogSuaMonAn
 import com.example.appdatcomtam.Screen.ScreenAdim.QLSanPham.UpdateMonAnScreen
 import com.example.appdatcomtam.Screen.ScreenAdim.ShowBillScreen
 import com.example.appdatcomtam.Screen.SignUpScreen
@@ -46,7 +47,8 @@ enum class ROUTE_NAME {
     addmonan,
     updatemonam,
     deletemonan,
-    dialogsualoaimonan
+    dialogsualoaimonan,
+    dialogsuamonan
 }
 
 @Composable
@@ -56,8 +58,9 @@ fun AppNavHost(
     val context = LocalContext.current
     val db = Room.databaseBuilder(
         context,
-        LoaiMonAnDB::class.java, "student-db"
+        LoaiMonAnDB::class.java, "Com_Tam_1"
     ).allowMainThreadQueries().build()
+
     NavHost(
         navController = navController,
         startDestination = ROUTE_NAME.welcome.name
@@ -117,6 +120,11 @@ fun AppNavHost(
         }
         composable(ROUTE_NAME.updatemonam.name) {
             UpdateMonAnScreen(navController)
+        }
+        composable("${ROUTE_NAME.dialogsuamonan.name}/{idMonAn}", arguments = listOf(navArgument("idMonAn") { type = NavType.IntType })) { backStackEntry ->
+            val idMonAn = backStackEntry.arguments?.getInt("idMonAn")
+            val item = db.monAnDao().loadAllByIds(intArrayOf(idMonAn ?: 0)).firstOrNull()
+            DialogSuaMonAn(navController, monAn = item)
         }
         composable(ROUTE_NAME.deletemonan.name) {
             DeleteMonAnScreen(navController)
