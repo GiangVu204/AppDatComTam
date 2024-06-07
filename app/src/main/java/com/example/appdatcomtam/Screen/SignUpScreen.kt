@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedTextField
@@ -27,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -36,6 +38,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.compose.foundation.rememberScrollState
 import com.example.appdatcomtam.LoginScreen
 import com.example.appdatcomtam.R
 
@@ -46,6 +49,7 @@ fun SignUpScreen(navController: NavController? = null) {
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
     val confirmPassword = remember { mutableStateOf("") }
+    val scrollState = rememberScrollState()
 
     Box(
         modifier = Modifier
@@ -55,7 +59,8 @@ fun SignUpScreen(navController: NavController? = null) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 16.dp, vertical = 32.dp),
+                .padding(horizontal = 16.dp, vertical = 32.dp)
+                .verticalScroll(scrollState),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -88,6 +93,7 @@ fun SignUpScreen(navController: NavController? = null) {
                         value = username.value,
                         onValueChange = { username.value = it },
                         label = { Text("Username", color = Color.White) },
+                        textStyle = TextStyle(color = Color.White),
                         modifier = Modifier.fillMaxWidth()
                     )
                     Spacer(modifier = Modifier.height(15.dp))
@@ -95,6 +101,7 @@ fun SignUpScreen(navController: NavController? = null) {
                         value = email.value,
                         onValueChange = { email.value = it },
                         label = { Text("Email", color = Color.White) },
+                        textStyle = TextStyle(color = Color.White),
                         modifier = Modifier.fillMaxWidth()
                     )
                     Spacer(modifier = Modifier.height(15.dp))
@@ -102,6 +109,7 @@ fun SignUpScreen(navController: NavController? = null) {
                         value = password.value,
                         onValueChange = { password.value = it },
                         label = { Text("Password", color = Color.White) },
+                        textStyle = TextStyle(color = Color.White),
                         modifier = Modifier.fillMaxWidth()
                     )
                     Spacer(modifier = Modifier.height(15.dp))
@@ -109,6 +117,7 @@ fun SignUpScreen(navController: NavController? = null) {
                         value = confirmPassword.value,
                         onValueChange = { confirmPassword.value = it },
                         label = { Text("Confirm Password", color = Color.White) },
+                        textStyle = TextStyle(color = Color.White),
                         modifier = Modifier.fillMaxWidth()
                     )
                     Spacer(modifier = Modifier.height(15.dp))
@@ -126,7 +135,6 @@ fun SignUpScreen(navController: NavController? = null) {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth(),
-
                         horizontalArrangement = Arrangement.Center
                     ) {
                         Text(text = "Nếu Bạn có tài khoản bấm", fontSize = 12.sp)
@@ -143,16 +151,12 @@ fun SignUpScreen(navController: NavController? = null) {
             }
         }
     }
+}
 
-
-  @Composable
-  fun chuyenmanhinh (navController: NavHostController){
-      NavHost(navController = navController, startDestination = "Signup") {
-          composable("Login"){ LoginScreen(navController)}
-          composable("Signup"){ SignUpScreen(navController)}
-      }
-  }
-
-
-
+@Composable
+fun chuyenmanhinh(navController: NavHostController) {
+    NavHost(navController = navController, startDestination = "Signup") {
+        composable("Login") { LoginScreen(navController) }
+        composable("Signup") { SignUpScreen(navController) }
+    }
 }

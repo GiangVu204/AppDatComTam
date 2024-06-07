@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -73,14 +74,16 @@ fun LoginScreen(navController: NavController? = null) {
                         value = username.value,
                         onValueChange = { username.value = it },
                         label = { Text("Username", color = Color.White) },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        textStyle = TextStyle(color = Color.White),
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     OutlinedTextField(
                         value = password.value,
                         onValueChange = { password.value = it },
                         label = { Text("Password", color = Color.White) },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        textStyle = TextStyle(color = Color.White),
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Button(
