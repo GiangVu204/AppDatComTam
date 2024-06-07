@@ -51,6 +51,7 @@ android {
 }
 
 dependencies {
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -71,11 +72,11 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     // Room components
-    implementation("androidx.room:room-runtime:2.2.5")
-    kapt("androidx.room:room-compiler:2.2.5")
+    implementation ("androidx.room:room-runtime:2.2.5")
+    kapt ("androidx.room:room-compiler:2.2.5")
 
     // Optional - Kotlin Extensions and Coroutines support for Room
-    implementation("androidx.room:room-ktx:2.2.5")
+    implementation ("androidx.room:room-ktx:2.4.2")
 
     // Testing Room
     testImplementation("androidx.room:room-testing:2.2.5")

@@ -1,6 +1,7 @@
 package com.example.appdatcomtam.Screen.ScreenAdim
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.appdatcomtam.ROUTE_NAME
 
 @Preview(showBackground = true)
 @Composable
@@ -83,6 +85,7 @@ fun HomeAdminScreen(navController: NavController? = null) {
                             .height(110.dp)
                             .clip(RoundedCornerShape(15.dp))
                             .background(Color(0xFF2F2D2D))
+                            .clickable { navController?.navigate("${ROUTE_NAME.detaildonhang.name}") }
                             ,
 
                         verticalAlignment = Alignment.CenterVertically,

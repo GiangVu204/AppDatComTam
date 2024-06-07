@@ -8,12 +8,12 @@ import androidx.room.Query
 import androidx.room.RoomDatabase
 import androidx.room.Update
 import com.example.appdatcomtam.Model.LoaiMonAnModel
+import com.example.appdatcomtam.Model.MonAnModel
 
-@Database(entities = arrayOf(LoaiMonAnModel::class), version = 1)
+@Database(entities = [LoaiMonAnModel::class], version = 1)
 abstract class LoaiMonAnDB : RoomDatabase() {
     abstract fun loaiMonAnDao(): LoaiMonAnDao
 }
-
 @Dao
 interface LoaiMonAnDao {
     @Query("SELECT * FROM LoaiMonAnModel")
@@ -31,3 +31,24 @@ interface LoaiMonAnDao {
     @Delete
     fun delete(user: LoaiMonAnModel)
 }
+
+//@Dao
+//interface MonAnDao {
+//    @Query("SELECT * FROM MonAnModel")
+//    fun getAll(): List<MonAnModel>
+//
+//    @Query("SELECT * FROM MonAnModel WHERE idMonAn IN (:monAnIds)")
+//    fun loadAllByIds(monAnIds: IntArray): List<MonAnModel>
+//
+//    @Query("SELECT * FROM MonAnModel WHERE loaiMonAnId = :loaiMonAnId")
+//    fun findByLoaiMonAnId(loaiMonAnId: Int): List<MonAnModel>
+//
+//    @Insert
+//    fun insert(vararg monAn: MonAnModel)
+//
+//    @Update
+//    fun update(monAn: MonAnModel)
+//
+//    @Delete
+//    fun delete(monAn: MonAnModel)
+//}
