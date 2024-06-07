@@ -100,7 +100,6 @@ fun MonChinh(){
         fontWeight = FontWeight.Bold,
         fontFamily = FontFamily.Monospace,
     )
-
     Row(
         Modifier
             .fillMaxWidth()
