@@ -53,10 +53,10 @@ fun UpdateLoaiSPScreen(navController: NavController? = null) {
     // Khởi tạo cơ sở dữ liệu LoaiMonAnDB
     val db = Room.databaseBuilder(
         context,
-        LoaiMonAnDB::class.java, "student-db"
+        LoaiMonAnDB::class.java, "Com_Tam_1"
     ).allowMainThreadQueries().build()
     
-    var listStudents by remember {
+    var listLoaiMonAnDB by remember {
         mutableStateOf(db.loaiMonAnDao().getAll())
     }
 
@@ -114,7 +114,7 @@ fun UpdateLoaiSPScreen(navController: NavController? = null) {
                 .background(Color(0xFF252121))
         ) {
             LazyColumn {
-                items(listStudents) { item ->
+                items(listLoaiMonAnDB) { item ->
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()

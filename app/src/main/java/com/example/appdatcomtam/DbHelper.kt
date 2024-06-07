@@ -10,9 +10,11 @@ import androidx.room.Update
 import com.example.appdatcomtam.Model.LoaiMonAnModel
 import com.example.appdatcomtam.Model.MonAnModel
 
-@Database(entities = [LoaiMonAnModel::class], version = 1)
+@Database(entities = [LoaiMonAnModel::class, MonAnModel::class], version = 1)
 abstract class LoaiMonAnDB : RoomDatabase() {
     abstract fun loaiMonAnDao(): LoaiMonAnDao
+    abstract fun monAnDao(): MonAnDao
+
 }
 @Dao
 interface LoaiMonAnDao {
@@ -32,23 +34,23 @@ interface LoaiMonAnDao {
     fun delete(user: LoaiMonAnModel)
 }
 
-//@Dao
-//interface MonAnDao {
-//    @Query("SELECT * FROM MonAnModel")
-//    fun getAll(): List<MonAnModel>
-//
-//    @Query("SELECT * FROM MonAnModel WHERE idMonAn IN (:monAnIds)")
-//    fun loadAllByIds(monAnIds: IntArray): List<MonAnModel>
-//
-//    @Query("SELECT * FROM MonAnModel WHERE loaiMonAnId = :loaiMonAnId")
-//    fun findByLoaiMonAnId(loaiMonAnId: Int): List<MonAnModel>
-//
-//    @Insert
-//    fun insert(vararg monAn: MonAnModel)
-//
-//    @Update
-//    fun update(monAn: MonAnModel)
-//
-//    @Delete
-//    fun delete(monAn: MonAnModel)
-//}
+@Dao
+interface MonAnDao {
+    @Query("SELECT * FROM MonAnModel")
+    fun getAll(): List<MonAnModel>
+
+    @Query("SELECT * FROM MonAnModel WHERE idMonAn IN (:monAnIds)")
+    fun loadAllByIds(monAnIds: IntArray): List<MonAnModel>
+
+    @Query("SELECT * FROM MonAnModel WHERE loaiMonAnId = :loaiMonAnId")
+    fun findByLoaiMonAnId(loaiMonAnId: Int): List<MonAnModel>
+
+    @Insert
+    fun insert(vararg monAn: MonAnModel)
+
+    @Update
+    fun update(monAn: MonAnModel)
+
+    @Delete
+    fun delete(monAn: MonAnModel)
+}

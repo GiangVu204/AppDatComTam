@@ -54,7 +54,7 @@ fun DialogSuaSP(navController: NavController? = null, loaiMonAn: LoaiMonAnModel?
     // Khởi tạo cơ sở dữ liệu LoaiMonAnDB
     val db = Room.databaseBuilder(
         context,
-        LoaiMonAnDB::class.java, "student-db"
+        LoaiMonAnDB::class.java, "Com_Tam_1"
     ).allowMainThreadQueries().build()
 
 
