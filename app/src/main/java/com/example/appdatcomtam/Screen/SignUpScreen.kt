@@ -39,6 +39,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import com.example.appdatcomtam.LoginScreen
 import com.example.appdatcomtam.R
 
@@ -50,6 +56,8 @@ fun SignUpScreen(navController: NavController? = null) {
     val password = remember { mutableStateOf("") }
     val confirmPassword = remember { mutableStateOf("") }
     val scrollState = rememberScrollState()
+    var passwordVisibleOne by remember { mutableStateOf(false) }
+    var passwordVisibleTwo by remember { mutableStateOf(false) }
 
     Box(
         modifier = Modifier
@@ -110,7 +118,18 @@ fun SignUpScreen(navController: NavController? = null) {
                         onValueChange = { password.value = it },
                         label = { Text("Password", color = Color.White) },
                         textStyle = TextStyle(color = Color.White),
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        visualTransformation = if (passwordVisibleOne) VisualTransformation.None else PasswordVisualTransformation(),
+                        trailingIcon = {
+                            val image = if (passwordVisibleOne) {
+                                painterResource(id = R.drawable.baseline_visibility_24)
+                            } else {
+                                painterResource(id = R.drawable.baseline_visibility_off_24)
+                            }
+                            IconButton(onClick = { passwordVisibleOne = !passwordVisibleOne }) {
+                                Icon(painter = image, contentDescription = null)
+                            }
+                        }
                     )
                     Spacer(modifier = Modifier.height(15.dp))
                     OutlinedTextField(
@@ -118,7 +137,18 @@ fun SignUpScreen(navController: NavController? = null) {
                         onValueChange = { confirmPassword.value = it },
                         label = { Text("Confirm Password", color = Color.White) },
                         textStyle = TextStyle(color = Color.White),
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        visualTransformation = if (passwordVisibleTwo) VisualTransformation.None else PasswordVisualTransformation(),
+                        trailingIcon = {
+                            val image = if (passwordVisibleTwo) {
+                                painterResource(id = R.drawable.baseline_visibility_24)
+                            } else {
+                                painterResource(id = R.drawable.baseline_visibility_off_24)
+                            }
+                            IconButton(onClick = { passwordVisibleTwo = !passwordVisibleTwo }) {
+                                Icon(painter = image, contentDescription = null)
+                            }
+                        }
                     )
                     Spacer(modifier = Modifier.height(15.dp))
                     Button(
