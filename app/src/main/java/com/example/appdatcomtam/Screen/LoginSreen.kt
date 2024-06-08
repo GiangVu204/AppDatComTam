@@ -8,6 +8,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import android.content.Context
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -15,9 +17,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
@@ -25,17 +31,20 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.appdatcomtam.Screen.HomeScreen
 import com.example.appdatcomtam.Screen.ScreenAdim.HomeAdminScreen
-
-
 import com.example.appdatcomtam.Screen.SignUpScreen
 
 @Preview(showBackground = true)
 @Composable
-fun LoginScreen(navController: NavController? = null, loginViewModel: LoginViewModel = viewModel()) {
+fun LoginScreen(
+    navController: NavController? = null,
+    loginViewModel: LoginViewModel = viewModel(factory = LoginViewModelFactory(LocalContext.current))
+) {
     val username by loginViewModel.username.collectAsState()
     val password by loginViewModel.password.collectAsState()
+    val rememberMe by loginViewModel.rememberMe.collectAsState()
     val loginState by loginViewModel.loginState.collectAsState()
     val userRole by loginViewModel.userRole.collectAsState()
+    var passwordVisible by remember { mutableStateOf(false) }
 
     Box(
         modifier = Modifier
@@ -87,7 +96,43 @@ fun LoginScreen(navController: NavController? = null, loginViewModel: LoginViewM
                         label = { Text("Password", color = Color.White) },
                         modifier = Modifier.fillMaxWidth(),
                         textStyle = TextStyle(color = Color.White),
+                        visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                        trailingIcon = {
+                            val image = if (passwordVisible) {
+                                painterResource(id = R.drawable.baseline_visibility_24)
+                            } else {
+                                painterResource(id = R.drawable.baseline_visibility_off_24)
+                            }
+
+                            IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                                Icon(painter = image, contentDescription = null)
+                            }
+                        }
                     )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 3.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Switch(
+                            checked = rememberMe,
+                            onCheckedChange = { loginViewModel.onRememberMeChange(it) },
+                            colors = SwitchDefaults.colors(
+                                checkedThumbColor = Color.White,
+                                uncheckedThumbColor = Color.Gray
+                            )
+                        )
+                        Text(
+                            text = "Remember Me?",
+                            modifier = Modifier.padding(horizontal = 5.dp),
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = FontFamily.Monospace,
+                            color = Color.White
+                        )
+                    }
                     Spacer(modifier = Modifier.height(16.dp))
                     Button(
                         onClick = { loginViewModel.login() },
@@ -144,7 +189,17 @@ fun NavGraph(navController: NavHostController) {
         composable("login") { LoginScreen(navController) }
         composable("signup") { SignUpScreen(navController) }
         composable("Home") { HomeScreen(navController) }
-
         composable("HomeAdmin") { HomeAdminScreen(navController) }
+    }
+}
+
+// ViewModel Factory
+class LoginViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return LoginViewModel(context) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
