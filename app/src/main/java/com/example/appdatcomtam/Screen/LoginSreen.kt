@@ -6,9 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -20,19 +18,24 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.appdatcomtam.Screen.HomeScreen
 import com.example.appdatcomtam.Screen.ScreenAdim.HomeAdminScreen
+
+
 import com.example.appdatcomtam.Screen.SignUpScreen
 
 @Preview(showBackground = true)
 @Composable
-fun LoginScreen(navController: NavController? = null) {
-    val username = remember { mutableStateOf("") }
-    val password = remember { mutableStateOf("") }
+fun LoginScreen(navController: NavController? = null, loginViewModel: LoginViewModel = viewModel()) {
+    val username by loginViewModel.username.collectAsState()
+    val password by loginViewModel.password.collectAsState()
+    val loginState by loginViewModel.loginState.collectAsState()
+    val userRole by loginViewModel.userRole.collectAsState()
 
     Box(
         modifier = Modifier
@@ -71,23 +74,23 @@ fun LoginScreen(navController: NavController? = null) {
                     )
                     Spacer(modifier = Modifier.height(24.dp))
                     OutlinedTextField(
-                        value = username.value,
-                        onValueChange = { username.value = it },
+                        value = username,
+                        onValueChange = { loginViewModel.onUsernameChange(it) },
                         label = { Text("Username", color = Color.White) },
                         modifier = Modifier.fillMaxWidth(),
                         textStyle = TextStyle(color = Color.White),
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     OutlinedTextField(
-                        value = password.value,
-                        onValueChange = { password.value = it },
+                        value = password,
+                        onValueChange = { loginViewModel.onPasswordChange(it) },
                         label = { Text("Password", color = Color.White) },
                         modifier = Modifier.fillMaxWidth(),
                         textStyle = TextStyle(color = Color.White),
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Button(
-                        onClick = { navController?.navigate("Home") },
+                        onClick = { loginViewModel.login() },
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(vertical = 20.dp),
@@ -100,7 +103,6 @@ fun LoginScreen(navController: NavController? = null) {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth(),
-
                         horizontalArrangement = Arrangement.Center
                     ) {
                         Text(text = "Nếu Bạn chưa có tài khoản bấm", fontSize = 12.sp)
@@ -113,17 +115,36 @@ fun LoginScreen(navController: NavController? = null) {
                             modifier = Modifier.clickable { navController?.navigate("signup") }
                         )
                     }
+
+                    when (loginState) {
+                        is LoginState.Loading -> CircularProgressIndicator()
+                        is LoginState.Error -> Text(
+                            text = (loginState as LoginState.Error).message,
+                            color = Color.Red
+                        )
+                        is LoginState.Success -> {
+                            LaunchedEffect(loginState) {
+                                when (userRole) {
+                                    UserRole.ADMIN -> navController?.navigate("Home")
+                                    UserRole.USER -> navController?.navigate("Home")
+                                }
+                            }
+                        }
+                        else -> {}
+                    }
                 }
             }
         }
     }
-    @Composable
-    fun NavGraph(navController: NavHostController) {
-        NavHost(navController = navController, startDestination = "login") {
-            composable("login") { LoginScreen(navController) }
-            composable("signup") { SignUpScreen(navController) }
-            composable("HomeAdmin") { HomeAdminScreen(navController) }
-            composable("Home") { HomeScreen(navController) }
-        }
+}
+
+@Composable
+fun NavGraph(navController: NavHostController) {
+    NavHost(navController = navController, startDestination = "login") {
+        composable("login") { LoginScreen(navController) }
+        composable("signup") { SignUpScreen(navController) }
+        composable("Home") { HomeScreen(navController) }
+
+        composable("HomeAdmin") { HomeAdminScreen(navController) }
     }
 }

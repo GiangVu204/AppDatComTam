@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,13 +36,11 @@ fun HomeAdminScreen(navController: NavController? = null) {
             .background(Color(0xFF252121))
 
     ) {
-        Column(
+        LazyColumn(
             modifier = Modifier
-                .padding(20.dp),
-
-
-            ) {
-            Box() {
+                .padding(10.dp)
+        ) {
+            item {
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     verticalArrangement = Arrangement.Center,
@@ -77,206 +76,58 @@ fun HomeAdminScreen(navController: NavController? = null) {
                             color = Color(0xFFFE724C),
                         )
                     }
-                    Spacer(modifier = Modifier.padding(vertical = 30.dp))
-                    Row(
-                        modifier = Modifier
-
-                            .fillMaxWidth()
-                            .height(110.dp)
-                            .clip(RoundedCornerShape(15.dp))
-                            .background(Color(0xFF2F2D2D))
-                            .clickable { navController?.navigate("${ROUTE_NAME.detaildonhang.name}") }
-                            ,
-
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-                        Column(modifier = Modifier.padding(horizontal = 12.dp)) {
-                            Text(
-                                text = "Đơn hàng CT2E22E  ",
-                                fontSize = 15.sp,
-                                fontFamily = FontFamily.Monospace,
-                                fontWeight = FontWeight.Bold,
-                                color = Color.White
-                            )
-                            Spacer(modifier = Modifier.padding(5.dp))
-                            Text(
-                                text = "Trạng Thái  ",
-                                fontSize = 15.sp,
-                                fontFamily = FontFamily.Monospace,
-                                fontWeight = FontWeight.Bold,
-                                color = Color.White
-                            )
-                        }
-
-
-                        Column(modifier = Modifier.padding(horizontal = 5.dp)) {
-                            Text(
-                                text = "|| 162.000d  ",
-                                fontSize = 15.sp,
-                                fontFamily = FontFamily.Monospace,
-                                fontWeight = FontWeight.Bold,
-                                color = Color.White
-                            )
-                            Spacer(modifier = Modifier.padding(5.dp))
-                            Text(
-                                text = "   Từ Chối  ", color = Color.Red,
-                                fontSize = 15.sp,
-                                fontFamily = FontFamily.Monospace,
-                                fontWeight = FontWeight.Bold,
-                            )
-                        }
-                    }
-                    Spacer(modifier = Modifier.padding(vertical = 10.dp))
-                    Row(
-                        modifier = Modifier
-
-                            .fillMaxWidth()
-                            .height(110.dp)
-                            .clip(RoundedCornerShape(15.dp))
-                            .background(Color(0xFF2F2D2D)),
-
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-                        Column(modifier = Modifier.padding(horizontal = 12.dp)) {
-                            Text(
-                                text = "Đơn hàng CT2E22E  ",
-                                fontSize = 15.sp,
-                                fontFamily = FontFamily.Monospace,
-                                fontWeight = FontWeight.Bold,
-                                color = Color.White
-                            )
-                            Spacer(modifier = Modifier.padding(5.dp))
-                            Text(
-                                text = "Trạng Thái  ",
-                                fontSize = 15.sp,
-                                fontFamily = FontFamily.Monospace,
-                                fontWeight = FontWeight.Bold,
-                                color = Color.White
-                            )
-                        }
-
-
-                        Column(modifier = Modifier.padding(horizontal = 5.dp)) {
-                            Text(
-                                text = "|| 162.000d  ",
-                                fontSize = 15.sp,
-                                fontFamily = FontFamily.Monospace,
-                                fontWeight = FontWeight.Bold,
-                                color = Color.White
-                            )
-                            Spacer(modifier = Modifier.padding(5.dp))
-                            Text(
-                                text = "   Từ Chối  ", color = Color.Red,
-                                fontSize = 15.sp,
-                                fontFamily = FontFamily.Monospace,
-                                fontWeight = FontWeight.Bold,
-                            )
-                        }
-                    }
-                    Spacer(modifier = Modifier.padding(vertical = 10.dp))
-                    Row(
-                        modifier = Modifier
-
-                            .fillMaxWidth()
-                            .height(110.dp)
-                            .clip(RoundedCornerShape(15.dp))
-                            .background(Color(0xFF2F2D2D)),
-
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-                        Column(modifier = Modifier.padding(horizontal = 12.dp)) {
-                            Text(
-                                text = "Đơn hàng CT2E22E  ",
-                                fontSize = 15.sp,
-                                fontFamily = FontFamily.Monospace,
-                                fontWeight = FontWeight.Bold,
-                                color = Color.White
-                            )
-                            Spacer(modifier = Modifier.padding(5.dp))
-                            Text(
-                                text = "Trạng Thái  ",
-                                fontSize = 15.sp,
-                                fontFamily = FontFamily.Monospace,
-                                fontWeight = FontWeight.Bold,
-                                color = Color.White
-                            )
-                        }
-
-
-                        Column(modifier = Modifier.padding(horizontal = 5.dp)) {
-                            Text(
-                                text = "|| 162.000d  ",
-                                fontSize = 15.sp,
-                                fontFamily = FontFamily.Monospace,
-                                fontWeight = FontWeight.Bold,
-                                color = Color.White
-                            )
-                            Spacer(modifier = Modifier.padding(5.dp))
-                            Text(
-                                text = "   Từ Chối  ", color = Color.Red,
-                                fontSize = 15.sp,
-                                fontFamily = FontFamily.Monospace,
-                                fontWeight = FontWeight.Bold,
-                            )
-                        }
-                    }
-                    Spacer(modifier = Modifier.padding(vertical = 10.dp))
-                    Row(
-                        modifier = Modifier
-
-                            .fillMaxWidth()
-                            .height(110.dp)
-                            .clip(RoundedCornerShape(15.dp))
-                            .background(Color(0xFF2F2D2D)),
-
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-                        Column(modifier = Modifier.padding(horizontal = 12.dp)) {
-                            Text(
-                                text = "Đơn hàng CT2E22E  ",
-                                fontSize = 15.sp,
-                                fontFamily = FontFamily.Monospace,
-                                fontWeight = FontWeight.Bold,
-                                color = Color.White
-                            )
-                            Spacer(modifier = Modifier.padding(5.dp))
-                            Text(
-                                text = "Trạng Thái  ",
-                                fontSize = 15.sp,
-                                fontFamily = FontFamily.Monospace,
-                                fontWeight = FontWeight.Bold,
-                                color = Color.White
-                            )
-                        }
-
-
-                        Column(modifier = Modifier.padding(horizontal = 5.dp)) {
-                            Text(
-                                text = "|| 162.000d  ",
-                                fontSize = 15.sp,
-                                fontFamily = FontFamily.Monospace,
-                                fontWeight = FontWeight.Bold,
-                                color = Color.White
-                            )
-                            Spacer(modifier = Modifier.padding(5.dp))
-                            Text(
-                                text = "   Từ Chối  ", color = Color.Red,
-                                fontSize = 15.sp,
-                                fontFamily = FontFamily.Monospace,
-                                fontWeight = FontWeight.Bold,
-                            )
-                        }
-                    }
-
                 }
-
-
             }
 
+            items(5) { // Thay số 5 bằng số lượng đơn hàng thực tế của bạn
+                Spacer(modifier = Modifier.padding(vertical = 30.dp))
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(110.dp)
+                        .clip(RoundedCornerShape(15.dp))
+                        .background(Color(0xFF2F2D2D))
+                        .clickable { navController?.navigate("${ROUTE_NAME.detaildonhang.name}") },
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Column(modifier = Modifier.padding(horizontal = 12.dp)) {
+                        Text(
+                            text = "Đơn hàng CT2E22E",
+                            fontSize = 15.sp,
+                            fontFamily = FontFamily.Monospace,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.White
+                        )
+                        Spacer(modifier = Modifier.padding(5.dp))
+                        Text(
+                            text = "Trạng Thái",
+                            fontSize = 15.sp,
+                            fontFamily = FontFamily.Monospace,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.White
+                        )
+                    }
+
+                    Column(modifier = Modifier.padding(horizontal = 5.dp)) {
+                        Text(
+                            text = "|| 162.000d",
+                            fontSize = 15.sp,
+                            fontFamily = FontFamily.Monospace,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.White
+                        )
+                        Spacer(modifier = Modifier.padding(5.dp))
+                        Text(
+                            text = "Từ Chối",
+                            color = Color.Red,
+                            fontSize = 15.sp,
+                            fontFamily = FontFamily.Monospace,
+                            fontWeight = FontWeight.Bold,
+                        )
+                    }
+                }
+            }
         }
     }
 }
