@@ -100,6 +100,7 @@ fun ManageDish(navController: NavController? = null) {
             .padding(top = 95.dp)
             .background(color = Color("#252121".toColorInt()))
     ) {
+        Spacer(modifier = Modifier.height(20.dp))
         // Quản lý món ăn
         Box(
             modifier = Modifier
@@ -125,7 +126,7 @@ fun ManageDish(navController: NavController? = null) {
             )
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+//        Spacer(modifier = Modifier.height(5.dp))
 
         // Quản lý loại món ăn
         Box(
@@ -150,7 +151,7 @@ fun ManageDish(navController: NavController? = null) {
             )
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+//        Spacer(modifier = Modifier.height(5.dp))
 
         // Quản lý loại món ăn
         Box(

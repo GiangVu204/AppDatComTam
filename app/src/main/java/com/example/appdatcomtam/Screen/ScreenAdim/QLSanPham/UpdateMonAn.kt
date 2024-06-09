@@ -1,5 +1,6 @@
 package com.example.appdatcomtam.Screen.ScreenAdim.QLSanPham
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -48,6 +49,7 @@ import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
 import androidx.navigation.NavController
 import androidx.room.Room
+import coil.compose.rememberImagePainter
 import com.example.appdatcomtam.LoaiMonAnDB
 import com.example.appdatcomtam.R
 import com.example.appdatcomtam.ROUTE_NAME
@@ -140,34 +142,53 @@ fun UpdateMonAnScreen(navController: NavController? = null) {
                         ) {
                             Text(
                                 modifier = Modifier
-                                    .weight(1f)
+                                    .weight(0.5f)
                                     .padding(start = 15.dp),
                                 text = item.idMonAn.toString(),
                                 color = Color.White
                             )
-                            Text(
-                                modifier = Modifier.weight(2f),
-                                text = item.tenMonAn.orEmpty(),
-                                color = Color.White,
-                                fontSize = 19.sp
+
+                            // Log the imageUri for debugging
+                            Log.d("UpdateMonAnScreen", "Image URI: ${item.imageUri}")
+
+                            // Display the image
+                            Image(
+                                painter = rememberImagePainter(data = item.imageUri),
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .size(70.dp)
+                                    .height(20.dp)
+                                    .padding(end = 8.dp)
+                                    .clip(RoundedCornerShape(18.dp)) // Bo góc ảnh
                             )
-                            Text(
-                                modifier = Modifier.weight(2f),
-                                text = item.giaMonAn.toString(),
-                                color = Color.White,
-                                fontSize = 19.sp
-                            )
+
+                            Column(
+                                modifier = Modifier
+                                    .weight(2f)
+                                    .padding(start = 15.dp)
+                            ) {
+                                Text(
+                                    text = item.tenMonAn.orEmpty(),
+                                    color = Color.White,
+                                    fontSize = 19.sp
+                                )
+                                Text(
+                                    text = "Giá: ${item.giaMonAn}",
+                                    color = Color.White,
+                                    fontSize = 14.sp
+                                )
+                            }
+
                             Icon(
                                 imageVector = Icons.Filled.Edit,
                                 contentDescription = "Edit",
                                 modifier = Modifier
                                     .padding(start = 8.dp)
-                                    .weight(1f)
                                     .clickable {
                                         // Điều hướng đến AddLoaiSPScreen và truyền dữ liệu
                                         navController?.navigate("dialogsuamonan/${item.idMonAn}")
                                     },
-                                Color.White
+                                tint = Color.White
                             )
                         }
                     }

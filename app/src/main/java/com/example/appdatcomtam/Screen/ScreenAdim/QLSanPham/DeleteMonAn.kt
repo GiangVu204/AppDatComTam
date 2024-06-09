@@ -43,6 +43,7 @@ import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
 import androidx.navigation.NavController
 import androidx.room.Room
+import coil.compose.rememberImagePainter
 import com.example.appdatcomtam.LoaiMonAnDB
 import com.example.appdatcomtam.Model.LoaiMonAnModel
 import com.example.appdatcomtam.Model.MonAnModel
@@ -143,6 +144,14 @@ fun DeleteMonAnScreen(navController: NavController? = null) {
                                     .padding(start = 15.dp),
                                 text = item.idMonAn.toString(),
                                 color = Color.White
+                            )
+                            Image(
+                                painter = rememberImagePainter(data = item.imageUri),
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .size(70.dp)
+                                    .padding(end = 8.dp)
+                                    .clip(RoundedCornerShape(18.dp)) // Bo góc ảnh
                             )
                             Text(
                                 modifier = Modifier.weight(2f),

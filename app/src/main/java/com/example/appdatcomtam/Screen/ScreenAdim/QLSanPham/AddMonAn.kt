@@ -1,9 +1,17 @@
 package com.example.appdatcomtam.Screen.ScreenAdim.QLSanPham
 
+import android.content.Intent
+import android.net.Uri
+import android.provider.MediaStore
+import android.provider.MediaStore.Audio.Media
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -23,11 +31,20 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowDropDown
 import com.example.appdatcomtam.Model.LoaiMonAnModel
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.PathEffect
+import androidx.compose.ui.graphics.TileMode
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.core.graphics.toColorInt
 import com.example.appdatcomtam.LoaiMonAnDB
 import com.example.appdatcomtam.R
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -44,6 +61,7 @@ fun AddMonAnScreen(navController: NavController? = null) {
     val monAnDao = db.monAnDao()
 
     // Remember state variables
+    val imageUriState = remember { mutableStateOf<Uri?>(null) }
     val tenMonAnState = remember { mutableStateOf("") }
     val giaMonAnState = remember { mutableStateOf("") }
     val loaiMonAnList = remember { mutableStateOf(listOf<LoaiMonAnModel>()) }
@@ -54,6 +72,14 @@ fun AddMonAnScreen(navController: NavController? = null) {
         loaiMonAnList.value = loaiMonAnDao.getAll()
         selectedLoaiMonAnState.value = loaiMonAnList.value.firstOrNull()?.uid
     }
+
+    // Create launcher for picking image from gallery
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        imageUriState.value = uri
+    }
+
     Column {
         TopAppBar(
             colors = TopAppBarDefaults.topAppBarColors(
@@ -106,49 +132,69 @@ fun AddMonAnScreen(navController: NavController? = null) {
                 .fillMaxSize()
                 .background(Color(0xFF252121))
                 .padding(16.dp),
-            verticalArrangement = Arrangement.Center,
+//            verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            OutlinedTextField(
-                label = { Text("Tên món ăn", color = Color(0xFFFFB703)) },
-                value = tenMonAnState.value,
-                onValueChange = { tenMonAnState.value = it },
+            // Image Món ăn
+            Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 8.dp),
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    focusedBorderColor = Color.White,
-                    unfocusedBorderColor = Color.White,
-                    cursorColor = Color.Black,
-                    containerColor = Color.White,
-                    focusedLabelColor = Color.Black,
-                    unfocusedLabelColor = Color.Black
-                )
-            )
+                    .fillMaxWidth(0.5f)
+                    .fillMaxHeight(0.365f)
+                    .clickable {
+                        // Mở thư viện để chọn ảnh
+                        launcher.launch("image/*")
+                    }
 
-            OutlinedTextField(
-                label = { Text("Giá món ăn", color = Color(0xFFFFB703)) },
-                value = giaMonAnState.value,
-                onValueChange = { giaMonAnState.value = it },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 8.dp),
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    focusedBorderColor = Color.White,
-                    unfocusedBorderColor = Color.White,
-                    cursorColor = Color.Black,
-                    containerColor = Color.White,
-                    focusedLabelColor = Color.Black,
-                    unfocusedLabelColor = Color.Black
-                )
-            )
-
+//                    .offset(y = -30.dp)
+                    .padding(bottom = 30.dp)
+                    .drawWithContent {
+                        drawRect(
+                            brush = Brush.horizontalGradient(
+                                colors = listOf(Color.Transparent, Color.Red, Color.Transparent),
+                                startX = 0f,
+                                endX = size.width,
+                                tileMode = TileMode.Repeated
+                            ),
+                            style = Stroke(
+                                width = 2.dp.toPx(),
+                                pathEffect = PathEffect.dashPathEffect(
+                                    floatArrayOf(10f, 10f),
+                                    0f
+                                )
+                            )
+                        )
+                        drawContent()
+                    }
+                    .background(color = Color.LightGray, shape = RoundedCornerShape(8.dp)),
+                contentAlignment = Alignment.CenterStart
+            ) {
+//                 ImageAddMonAn(Image = R.drawable.logo_splash)
+                imageUriState.value?.let { uri ->
+                    Image(
+                        painter = rememberAsyncImagePainter(uri),
+                        contentDescription = "Ảnh món ăn",
+                        modifier = Modifier.fillMaxSize()
+                    )
+                } ?: run {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Image(painter = painterResource(id = R.drawable.plus), contentDescription = "",
+                        Modifier
+                            .width(25.dp)
+                            .height(25.dp))
+                    Text(text = "Thêm hình ảnh", Modifier.fillMaxWidth(0.5f), color = Color.DarkGray)
+                    }
+                }
+            }
             // Spinner for loaiMonAn
+            Text(text = "Loại Món", Modifier.fillMaxWidth(), color = Color.White)
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 8.dp)
+                    .height(50.dp)
             ) {
                 var expanded by remember { mutableStateOf(false) }
                 TextField(
@@ -156,12 +202,13 @@ fun AddMonAnScreen(navController: NavController? = null) {
                         ?: "",
                     onValueChange = {},
                     readOnly = true,
-                    label = { Text("Chọn loại món ăn", color = Color(0xFFFFB703)) },
+                    label = { Text("Chọn loại món ăn", color = Color(0xFFFFB703), fontSize = 10.sp) },
                     trailingIcon = {
                         IconButton(onClick = { expanded = true }) {
                             Icon(Icons.Default.ArrowDropDown, contentDescription = "DropDown")
                         }
                     },
+                    modifier = Modifier.fillMaxWidth(),
                     colors = TextFieldDefaults.textFieldColors(
                         disabledTextColor = Color.Black,
                         focusedIndicatorColor = Color.Transparent,
@@ -183,6 +230,51 @@ fun AddMonAnScreen(navController: NavController? = null) {
                     }
                 }
             }
+            
+            Spacer(modifier = Modifier.padding(5.dp))
+
+            // Giá món ăn
+            Text(text = "Giá", Modifier.fillMaxWidth(), color = Color.White)
+            OutlinedTextField(
+                label = { Text("Giá món ăn", color = Color(0xFFFFB703)) },
+                value = giaMonAnState.value,
+                onValueChange = { giaMonAnState.value = it },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(54.dp),
+                textStyle = TextStyle(fontSize = 13.sp),
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    focusedBorderColor = Color.White,
+                    unfocusedBorderColor = Color.White,
+                    cursorColor = Color.Black,
+                    containerColor = Color.White,
+                    focusedLabelColor = Color.Black,
+                    unfocusedLabelColor = Color.Black
+                )
+            )
+            
+            Spacer(modifier = Modifier.padding(5.dp))
+
+            //Name Món Ăn
+            Text(text = "Tên món ăn", Modifier.fillMaxWidth(), color = Color.White)
+            OutlinedTextField(
+                label = { Text("Tên món ăn", color = Color(0xFFFFB703)) },
+                value = tenMonAnState.value,
+                onValueChange = { tenMonAnState.value = it },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(54.dp),
+                textStyle = TextStyle(fontSize = 13.sp),
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    focusedBorderColor = Color.White,
+                    unfocusedBorderColor = Color.White,
+                    cursorColor = Color.Black,
+                    containerColor = Color.White,
+                    focusedLabelColor = Color.Black,
+                    unfocusedLabelColor = Color.Black
+                )
+            )
 
             // Add MonAn button
             Button(
@@ -190,12 +282,14 @@ fun AddMonAnScreen(navController: NavController? = null) {
                     val tenMonAn = tenMonAnState.value
                     val giaMonAn = giaMonAnState.value.toDoubleOrNull()
                     val loaiMonAnId = selectedLoaiMonAnState.value
+                    val imageUri = imageUriState.value
 
-                    if (tenMonAn.isNotEmpty() && giaMonAn != null && loaiMonAnId != null) {
+                    if (tenMonAn.isNotEmpty() && giaMonAn != null && loaiMonAnId != null && imageUri != null) {
                         val monAn = MonAnModel(
                             tenMonAn = tenMonAn,
                             giaMonAn = giaMonAn,
-                            loaiMonAnId = loaiMonAnId
+                            loaiMonAnId = loaiMonAnId,
+                            imageUri = imageUri.toString(), // Save image URI as a string
                         )
                         monAnDao.insert(monAn)
                         Toast.makeText(context, "Đã thêm món ăn", Toast.LENGTH_SHORT).show()
@@ -213,9 +307,9 @@ fun AddMonAnScreen(navController: NavController? = null) {
                     contentColor = Color.White
                 ),
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp)
-                    .padding(top = 16.dp)
+                    .fillMaxWidth(0.4f)
+                    .height(80.dp)
+                    .padding(top = 46.dp)
             ) {
                 Text("Thêm", fontSize = 16.sp)
             }

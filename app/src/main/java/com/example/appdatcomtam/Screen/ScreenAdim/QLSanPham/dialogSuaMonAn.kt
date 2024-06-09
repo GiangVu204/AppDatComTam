@@ -1,6 +1,10 @@
 package com.example.appdatcomtam.Screen.ScreenAdim.QLSanPham
 
+import android.net.Uri
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
@@ -20,6 +24,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import androidx.room.Room
+import coil.compose.rememberImagePainter
 import com.example.appdatcomtam.Model.MonAnModel
 import com.example.appdatcomtam.Model.LoaiMonAnModel
 import com.example.appdatcomtam.ROUTE_NAME
@@ -50,10 +55,16 @@ fun DialogSuaMonAn(navController: NavController?, monAn: MonAnModel?) {
     var giaMonAnState by remember { mutableStateOf(monAn.giaMonAn?.toString() ?: "") }
     var loaiMonAnList by remember { mutableStateOf(listOf<LoaiMonAnModel>()) }
     var selectedLoaiMonAnState by remember { mutableStateOf(monAn.loaiMonAnId) }
+    var imageUriState by remember { mutableStateOf<Uri?>(Uri.parse(monAn.imageUri)) }
 
     // Load the list of categories
     LaunchedEffect(Unit) {
         loaiMonAnList = loaiMonAnDao.getAll()
+    }
+
+    // Image Picker Launcher
+    val imagePickerLauncher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        imageUriState = uri
     }
 
     Column(
@@ -138,18 +149,47 @@ fun DialogSuaMonAn(navController: NavController?, monAn: MonAnModel?) {
             }
         }
 
+        // Image Picker Button
+        Button(
+            onClick = { imagePickerLauncher.launch("image/*") },
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFFFFB703),
+                contentColor = Color.White
+            ),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp)
+                .padding(bottom = 8.dp)
+        ) {
+            Text("Chọn ảnh", fontSize = 16.sp)
+        }
+
+        // Display selected image
+        imageUriState?.let { uri ->
+            Image(
+                painter = rememberImagePainter(data = uri),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(200.dp)
+                    .padding(8.dp)
+            )
+        }
+
+
         // Update MonAn button
         Button(
             onClick = {
                 val tenMonAn = tenMonAnState
                 val giaMonAn = giaMonAnState.toDoubleOrNull()
                 val loaiMonAnId = selectedLoaiMonAnState
+                val imageUri = imageUriState.toString()
 
                 if (tenMonAn.isNotEmpty() && giaMonAn != null && loaiMonAnId != null) {
                     val updatedMonAn = monAn.copy(
                         tenMonAn = tenMonAn,
                         giaMonAn = giaMonAn,
-                        loaiMonAnId = loaiMonAnId
+                        loaiMonAnId = loaiMonAnId,
+                        imageUri = imageUri
                     )
                     monAnDao.update(updatedMonAn)
                     Toast.makeText(context, "Đã cập nhật món ăn", Toast.LENGTH_SHORT).show()

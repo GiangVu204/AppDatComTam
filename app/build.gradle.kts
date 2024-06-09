@@ -80,4 +80,11 @@ dependencies {
 
     // Testing Room
     testImplementation("androidx.room:room-testing:2.2.5")
+
+    implementation ("io.coil-kt:coil-compose:2.2.2")
+
+    implementation ("androidx.activity:activity-compose:1.3.1")
+    implementation ("androidx.activity:activity-ktx:1.3.1")
+    implementation ("androidx.core:core-ktx:1.6.0")
+
 }
