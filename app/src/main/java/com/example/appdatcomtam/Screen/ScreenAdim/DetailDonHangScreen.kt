@@ -2,6 +2,7 @@ package com.example.appdatcomtam.Screen.ScreenAdim
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,15 +13,18 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -37,7 +41,7 @@ fun DetailDonDangScreen(navController: NavController? = null) {
         Modifier
             .fillMaxSize()
             .background(Color(0xFF252120))
-            .padding(5.dp)
+            .padding(15.dp)
     ) {
         item {
             Nut()
@@ -65,6 +69,7 @@ fun DetailDonDangScreen(navController: NavController? = null) {
 
 @Composable
 fun Nut(){
+    Spacer(modifier = Modifier.height(15.dp))
     Row(
         Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceAround
@@ -100,6 +105,7 @@ fun MonChinh(){
         fontWeight = FontWeight.Bold,
         fontFamily = FontFamily.Monospace,
     )
+    Spacer(modifier = Modifier.height(15.dp))
     Row(
         Modifier
             .fillMaxWidth()
@@ -107,8 +113,8 @@ fun MonChinh(){
             .clip(RoundedCornerShape(15.dp))
             .background(Color(0xFF2F2D2D)),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
     ){
+        Spacer(Modifier.width(20.dp))
         Column {
             Text(
                 text = "1",
@@ -125,13 +131,15 @@ fun MonChinh(){
                 painter = painterResource(id = R.drawable.suon_bi),
                 contentDescription = null,
                 Modifier
-                    .width(100.dp)
-                    .height(100.dp)
+                    .width(80.dp)
+                    .height(80.dp)
+                    .clip(RoundedCornerShape(20.dp))
+                    .border(0.dp, Color.Gray, RoundedCornerShape(20.dp)),
+                contentScale = ContentScale.Crop,
             )
         }
-        Column(
-            Modifier.padding(horizontal = 5.dp)
-        ){
+        Spacer(Modifier.width(10.dp))
+        Column{
             Text(
                 text = "Sườn bì",
                 fontSize = 15.sp,
@@ -139,6 +147,7 @@ fun MonChinh(){
                 fontWeight = FontWeight.Bold,
                 color = Color.White
             )
+            Spacer(Modifier.height(15.dp))
             Text(
                 text = "56K",
                 fontSize = 15.sp,
@@ -147,7 +156,7 @@ fun MonChinh(){
                 color = Color.Red
             )
         }
-        Spacer(Modifier.width(10.dp))
+        Spacer(Modifier.width(60.dp))
         Column {
             Text(
                 text = "02",
@@ -164,11 +173,10 @@ fun MonChinh(){
             .fillMaxWidth()
             .height(110.dp)
             .clip(RoundedCornerShape(15.dp))
-            .background(Color(0xFF2F2D2D))
-            .padding(10.dp),
+            .background(Color(0xFF2F2D2D)),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
     ){
+        Spacer(Modifier.width(20.dp))
         Column {
             Text(
                 text = "2",
@@ -185,13 +193,15 @@ fun MonChinh(){
                 painter = painterResource(id = R.drawable.bi_cha),
                 contentDescription = null,
                 Modifier
-                    .width(100.dp)
-                    .height(100.dp)
+                    .width(80.dp)
+                    .height(80.dp)
+                    .clip(RoundedCornerShape(20.dp))
+                    .border(0.dp, Color.Gray, RoundedCornerShape(20.dp)),
+                contentScale = ContentScale.Crop,
             )
         }
-        Column(
-            Modifier.padding(horizontal = 5.dp)
-        ){
+        Spacer(Modifier.width(10.dp))
+        Column{
             Text(
                 text = "Bì chả",
                 fontSize = 15.sp,
@@ -199,6 +209,7 @@ fun MonChinh(){
                 fontWeight = FontWeight.Bold,
                 color = Color.White
             )
+            Spacer(Modifier.height(15.dp))
             Text(
                 text = "25K",
                 fontSize = 15.sp,
@@ -207,7 +218,7 @@ fun MonChinh(){
                 color = Color.Red
             )
         }
-        Spacer(Modifier.width(10.dp))
+        Spacer(Modifier.width(70.dp))
         Column {
             Text(
                 text = "01",
@@ -224,11 +235,10 @@ fun MonChinh(){
             .fillMaxWidth()
             .height(110.dp)
             .clip(RoundedCornerShape(15.dp))
-            .background(Color(0xFF2F2D2D))
-            .padding(10.dp),
+            .background(Color(0xFF2F2D2D)),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
     ){
+        Spacer(Modifier.width(20.dp))
         Column {
             Text(
                 text = "3",
@@ -245,13 +255,15 @@ fun MonChinh(){
                 painter = painterResource(id = R.drawable.bi_trung),
                 contentDescription = null,
                 Modifier
-                    .width(100.dp)
-                    .height(100.dp)
+                    .width(80.dp)
+                    .height(80.dp)
+                    .clip(RoundedCornerShape(20.dp))
+                    .border(0.dp, Color.Gray, RoundedCornerShape(20.dp)),
+                contentScale = ContentScale.Crop,
             )
         }
-        Column(
-            Modifier.padding(horizontal = 5.dp)
-        ){
+        Spacer(Modifier.width(10.dp))
+        Column{
             Text(
                 text = "Bì trung",
                 fontSize = 15.sp,
@@ -259,6 +271,7 @@ fun MonChinh(){
                 fontWeight = FontWeight.Bold,
                 color = Color.White
             )
+            Spacer(Modifier.height(15.dp))
             Text(
                 text = "56K",
                 fontSize = 15.sp,
@@ -267,7 +280,7 @@ fun MonChinh(){
                 color = Color.Red
             )
         }
-        Spacer(Modifier.width(10.dp))
+        Spacer(Modifier.width(60.dp))
         Column {
             Text(
                 text = "01",
@@ -282,6 +295,8 @@ fun MonChinh(){
 
 @Composable
 fun MonThem(){
+    Spacer(modifier = Modifier.height(8.dp))
+    Divider(color = Color.White, thickness = 1.dp)
     Spacer(modifier = Modifier.height(15.dp))
     Text(
         text = "Món thêm",
@@ -290,6 +305,7 @@ fun MonThem(){
         fontWeight = FontWeight.Bold,
         fontFamily = FontFamily.Monospace,
     )
+    Spacer(Modifier.height(15.dp))
     Row(
         Modifier
             .fillMaxWidth()
@@ -297,8 +313,8 @@ fun MonThem(){
             .clip(RoundedCornerShape(15.dp))
             .background(Color(0xFF2F2D2D)),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
     ){
+        Spacer(Modifier.width(20.dp))
         Column {
             Text(
                 text = "1",
@@ -315,13 +331,15 @@ fun MonThem(){
                 painter = painterResource(id = R.drawable.suon),
                 contentDescription = null,
                 Modifier
-                    .width(100.dp)
-                    .height(100.dp)
+                    .width(80.dp)
+                    .height(80.dp)
+                    .clip(RoundedCornerShape(20.dp))
+                    .border(0.dp, Color.Gray, RoundedCornerShape(20.dp)),
+                contentScale = ContentScale.Crop,
             )
         }
-        Column(
-            Modifier.padding(horizontal = 5.dp)
-        ){
+        Spacer(Modifier.width(10.dp))
+        Column{
             Text(
                 text = "Sườn",
                 fontSize = 15.sp,
@@ -329,6 +347,7 @@ fun MonThem(){
                 fontWeight = FontWeight.Bold,
                 color = Color.White
             )
+            Spacer(Modifier.height(15.dp))
             Text(
                 text = "10K",
                 fontSize = 15.sp,
@@ -337,7 +356,7 @@ fun MonThem(){
                 color = Color.Red
             )
         }
-        Spacer(Modifier.width(10.dp))
+        Spacer(Modifier.width(80.dp))
         Column {
             Text(
                 text = "02",
@@ -354,14 +373,13 @@ fun MonThem(){
             .fillMaxWidth()
             .height(110.dp)
             .clip(RoundedCornerShape(15.dp))
-            .background(Color(0xFF2F2D2D))
-            .padding(10.dp),
+            .background(Color(0xFF2F2D2D)),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
     ){
+        Spacer(Modifier.width(20.dp))
         Column {
             Text(
-                text = "1",
+                text = "2",
                 fontSize = 15.sp,
                 fontFamily = FontFamily.Monospace,
                 fontWeight = FontWeight.Bold,
@@ -375,9 +393,12 @@ fun MonThem(){
                 painter = painterResource(id = R.drawable.suon_bi),
                 contentDescription = null,
                 Modifier
-                    .width(100.dp)
-                    .height(100.dp)
-            )
+                    .width(80.dp)
+                    .height(80.dp)
+                    .clip(RoundedCornerShape(20.dp))
+                    .border(0.dp, Color.Gray, RoundedCornerShape(20.dp)),
+                contentScale = ContentScale.Crop,
+                )
         }
         Column(
             Modifier.padding(horizontal = 5.dp)
@@ -389,6 +410,7 @@ fun MonThem(){
                 fontWeight = FontWeight.Bold,
                 color = Color.White
             )
+            Spacer(Modifier.height(15.dp))
             Text(
                 text = "10K",
                 fontSize = 15.sp,
@@ -397,7 +419,7 @@ fun MonThem(){
                 color = Color.Red
             )
         }
-        Spacer(Modifier.width(10.dp))
+        Spacer(Modifier.width(60.dp))
         Column {
             Text(
                 text = "02",
@@ -414,14 +436,13 @@ fun MonThem(){
             .fillMaxWidth()
             .height(110.dp)
             .clip(RoundedCornerShape(15.dp))
-            .background(Color(0xFF2F2D2D))
-            .padding(10.dp),
+            .background(Color(0xFF2F2D2D)),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
     ){
+        Spacer(Modifier.width(20.dp))
         Column {
             Text(
-                text = "1",
+                text = "3",
                 fontSize = 15.sp,
                 fontFamily = FontFamily.Monospace,
                 fontWeight = FontWeight.Bold,
@@ -435,8 +456,11 @@ fun MonThem(){
                 painter = painterResource(id = R.drawable.trung),
                 contentDescription = null,
                 Modifier
-                    .width(100.dp)
-                    .height(100.dp)
+                    .width(80.dp)
+                    .height(80.dp)
+                    .clip(RoundedCornerShape(20.dp))
+                    .border(0.dp, Color.Gray, RoundedCornerShape(20.dp)),
+                contentScale = ContentScale.Crop,
             )
         }
         Column(
@@ -449,6 +473,7 @@ fun MonThem(){
                 fontWeight = FontWeight.Bold,
                 color = Color.White
             )
+            Spacer(Modifier.height(15.dp))
             Text(
                 text = "5K",
                 fontSize = 15.sp,
@@ -457,7 +482,7 @@ fun MonThem(){
                 color = Color.Red
             )
         }
-        Spacer(Modifier.width(10.dp))
+        Spacer(Modifier.width(80.dp))
         Column {
             Text(
                 text = "02",
@@ -472,6 +497,8 @@ fun MonThem(){
 
 @Composable
 fun Topping() {
+    Spacer(modifier = Modifier.height(8.dp))
+    Divider(color = Color.White, thickness = 1.dp)
     Spacer(modifier = Modifier.height(15.dp))
     Text(
         text = "Topping",
@@ -480,6 +507,7 @@ fun Topping() {
         fontWeight = FontWeight.Bold,
         fontFamily = FontFamily.Monospace,
     )
+    Spacer(modifier = Modifier.height(15.dp))
     Row(
         Modifier
             .fillMaxWidth()
@@ -487,8 +515,8 @@ fun Topping() {
             .clip(RoundedCornerShape(15.dp))
             .background(Color(0xFF2F2D2D)),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
     ) {
+        Spacer(Modifier.width(20.dp))
         Column {
             Text(
                 text = "1",
@@ -505,8 +533,11 @@ fun Topping() {
                 painter = painterResource(id = R.drawable.mo_hanh),
                 contentDescription = null,
                 Modifier
-                    .width(100.dp)
-                    .height(100.dp)
+                    .width(80.dp)
+                    .height(80.dp)
+                    .clip(RoundedCornerShape(20.dp))
+                    .border(0.dp, Color.Gray, RoundedCornerShape(20.dp)),
+                contentScale = ContentScale.Crop,
             )
         }
         Column(
@@ -519,6 +550,7 @@ fun Topping() {
                 fontWeight = FontWeight.Bold,
                 color = Color.White
             )
+            Spacer(Modifier.height(15.dp))
             Text(
                 text = "Free",
                 fontSize = 15.sp,
@@ -527,7 +559,7 @@ fun Topping() {
                 color = Color.Red
             )
         }
-        Spacer(Modifier.width(10.dp))
+        Spacer(Modifier.width(60.dp))
         Column {
             Text(
                 text = "02",
@@ -544,11 +576,10 @@ fun Topping() {
             .fillMaxWidth()
             .height(110.dp)
             .clip(RoundedCornerShape(15.dp))
-            .background(Color(0xFF2F2D2D))
-            .padding(10.dp),
+            .background(Color(0xFF2F2D2D)),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
     ) {
+        Spacer(Modifier.width(20.dp))
         Column {
             Text(
                 text = "2",
@@ -565,8 +596,11 @@ fun Topping() {
                 painter = painterResource(id = R.drawable.top_mo),
                 contentDescription = null,
                 Modifier
-                    .width(100.dp)
-                    .height(100.dp)
+                    .width(80.dp)
+                    .height(80.dp)
+                    .clip(RoundedCornerShape(20.dp))
+                    .border(0.dp, Color.Gray, RoundedCornerShape(20.dp)),
+                contentScale = ContentScale.Crop,
             )
         }
         Column(
@@ -579,6 +613,7 @@ fun Topping() {
                 fontWeight = FontWeight.Bold,
                 color = Color.White
             )
+            Spacer(Modifier.height(15.dp))
             Text(
                 text = "Free",
                 fontSize = 15.sp,
@@ -587,7 +622,7 @@ fun Topping() {
                 color = Color.Red
             )
         }
-        Spacer(Modifier.width(10.dp))
+        Spacer(Modifier.width(80.dp))
         Column {
             Text(
                 text = "02",
@@ -602,6 +637,8 @@ fun Topping() {
 
 @Composable
 fun Khac() {
+    Spacer(modifier = Modifier.height(8.dp))
+    Divider(color = Color.White, thickness = 1.dp)
     Spacer(modifier = Modifier.height(15.dp))
     Text(
         text = "Khác",
@@ -610,6 +647,7 @@ fun Khac() {
         fontWeight = FontWeight.Bold,
         fontFamily = FontFamily.Monospace,
     )
+    Spacer(modifier = Modifier.height(15.dp))
     Row(
         Modifier
             .fillMaxWidth()
@@ -617,8 +655,8 @@ fun Khac() {
             .clip(RoundedCornerShape(15.dp))
             .background(Color(0xFF2F2D2D)),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
     ) {
+        Spacer(Modifier.width(20.dp))
         Column {
             Text(
                 text = "1",
@@ -635,8 +673,11 @@ fun Khac() {
                 painter = painterResource(id = R.drawable.khan_lanh),
                 contentDescription = null,
                 Modifier
-                    .width(100.dp)
-                    .height(100.dp)
+                    .width(80.dp)
+                    .height(80.dp)
+                    .clip(RoundedCornerShape(20.dp))
+                    .border(0.dp, Color.Gray, RoundedCornerShape(20.dp)),
+                contentScale = ContentScale.Crop,
             )
         }
         Column(
@@ -649,6 +690,7 @@ fun Khac() {
                 fontWeight = FontWeight.Bold,
                 color = Color.White
             )
+            Spacer(Modifier.height(15.dp))
             Text(
                 text = "2K",
                 fontSize = 15.sp,
@@ -657,7 +699,7 @@ fun Khac() {
                 color = Color.Red
             )
         }
-        Spacer(Modifier.width(10.dp))
+        Spacer(Modifier.width(60.dp))
         Column {
             Text(
                 text = "02",
@@ -674,11 +716,10 @@ fun Khac() {
             .fillMaxWidth()
             .height(110.dp)
             .clip(RoundedCornerShape(15.dp))
-            .background(Color(0xFF2F2D2D))
-            .padding(10.dp),
+            .background(Color(0xFF2F2D2D)),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
     ) {
+        Spacer(Modifier.width(20.dp))
         Column {
             Text(
                 text = "2",
@@ -695,8 +736,11 @@ fun Khac() {
                 painter = painterResource(id = R.drawable.khan_giay),
                 contentDescription = null,
                 Modifier
-                    .width(100.dp)
-                    .height(100.dp)
+                    .width(80.dp)
+                    .height(80.dp)
+                    .clip(RoundedCornerShape(20.dp))
+                    .border(0.dp, Color.Gray, RoundedCornerShape(20.dp)),
+                contentScale = ContentScale.Crop,
             )
         }
         Column(
@@ -709,6 +753,7 @@ fun Khac() {
                 fontWeight = FontWeight.Bold,
                 color = Color.White
             )
+            Spacer(Modifier.height(15.dp))
             Text(
                 text = "Free",
                 fontSize = 15.sp,
@@ -717,7 +762,7 @@ fun Khac() {
                 color = Color.Red
             )
         }
-        Spacer(Modifier.width(10.dp))
+        Spacer(Modifier.width(60.dp))
         Column {
             Text(
                 text = "02",
@@ -732,6 +777,8 @@ fun Khac() {
 
 @Composable
 fun DiaChi(){
+    Spacer(modifier = Modifier.height(8.dp))
+    Divider(color = Color.White, thickness = 1.dp)
     Spacer(Modifier.height(20.dp))
     Column {
         Row {
@@ -819,6 +866,8 @@ fun DiaChi(){
 
 @Composable
 fun ThanhToan(){
+    Spacer(modifier = Modifier.height(8.dp))
+    Divider(color = Color.White, thickness = 1.dp)
     Spacer(Modifier.height(20.dp))
     Column {
         Row {
