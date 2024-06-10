@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -40,6 +41,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -155,9 +157,9 @@ fun UpdateMonAnScreen(navController: NavController? = null) {
                             Image(
                                 painter = rememberImagePainter(data = item.imageUri),
                                 contentDescription = null,
+                                contentScale = ContentScale.Crop,
                                 modifier = Modifier
                                     .size(70.dp)
-                                    .height(20.dp)
                                     .padding(end = 8.dp)
                                     .clip(RoundedCornerShape(18.dp)) // Bo góc ảnh
                             )
@@ -172,6 +174,7 @@ fun UpdateMonAnScreen(navController: NavController? = null) {
                                     color = Color.White,
                                     fontSize = 19.sp
                                 )
+                                Spacer(modifier = Modifier.padding(10.dp))
                                 Text(
                                     text = "Giá: ${item.giaMonAn}",
                                     color = Color.White,
@@ -183,7 +186,7 @@ fun UpdateMonAnScreen(navController: NavController? = null) {
                                 imageVector = Icons.Filled.Edit,
                                 contentDescription = "Edit",
                                 modifier = Modifier
-                                    .padding(start = 8.dp)
+                                    .padding(start = 8.dp, end = 5.dp)
                                     .clickable {
                                         // Điều hướng đến AddLoaiSPScreen và truyền dữ liệu
                                         navController?.navigate("dialogsuamonan/${item.idMonAn}")

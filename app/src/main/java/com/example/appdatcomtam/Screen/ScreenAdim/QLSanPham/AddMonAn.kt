@@ -36,6 +36,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -173,6 +174,7 @@ fun AddMonAnScreen(navController: NavController? = null) {
                     Image(
                         painter = rememberAsyncImagePainter(uri),
                         contentDescription = "Ảnh món ăn",
+                        contentScale = ContentScale.Crop,
                         modifier = Modifier.fillMaxSize()
                     )
                 } ?: run {
@@ -198,8 +200,7 @@ fun AddMonAnScreen(navController: NavController? = null) {
             ) {
                 var expanded by remember { mutableStateOf(false) }
                 TextField(
-                    value = loaiMonAnList.value.find { it.uid == selectedLoaiMonAnState.value }?.tenLoaiMonAn
-                        ?: "",
+                    value = loaiMonAnList.value.find { it.uid == selectedLoaiMonAnState.value }?.tenLoaiMonAn ?: "",
                     onValueChange = {},
                     readOnly = true,
                     label = { Text("Chọn loại món ăn", color = Color(0xFFFFB703), fontSize = 10.sp) },

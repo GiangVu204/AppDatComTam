@@ -3,14 +3,17 @@ package com.example.appdatcomtam.Screen.ScreenAdim.QLSanPham
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -20,6 +23,7 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -35,9 +39,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
@@ -135,7 +141,7 @@ fun DeleteMonAnScreen(navController: NavController? = null) {
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(8.dp, top = 28.dp, bottom = 28.dp),
+                                .padding(8.dp, top = 22.dp, bottom = 22.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
@@ -148,23 +154,30 @@ fun DeleteMonAnScreen(navController: NavController? = null) {
                             Image(
                                 painter = rememberImagePainter(data = item.imageUri),
                                 contentDescription = null,
+                                contentScale = ContentScale.Crop,
                                 modifier = Modifier
                                     .size(70.dp)
                                     .padding(end = 8.dp)
                                     .clip(RoundedCornerShape(18.dp)) // Bo góc ảnh
                             )
-                            Text(
-                                modifier = Modifier.weight(2f),
-                                text = item.tenMonAn.orEmpty(),
-                                color = Color.White,
-                                fontSize = 19.sp
-                            )
-                            Text(
-                                modifier = Modifier.weight(2f),
-                                text = item.giaMonAn.toString(),
-                                color = Color.White,
-                                fontSize = 19.sp
-                            )
+//                            Column(
+//                                modifier = Modifier
+//                                    .weight(2f)
+//                                    .padding(start = 15.dp)
+//                            ) {
+                                Text(
+                                    modifier = Modifier.weight(2f),
+                                    text = item.tenMonAn.orEmpty(),
+                                    color = Color.White,
+                                    fontSize = 19.sp
+                                )
+                                Text(
+                                    modifier = Modifier.weight(2f),
+                                    text = item.giaMonAn.toString(),
+                                    color = Color.White,
+                                    fontSize = 19.sp
+                                )
+//                            }
                             Icon(
                                 imageVector = Icons.Filled.Delete,
                                 contentDescription = "Edit",
@@ -208,23 +221,42 @@ fun DeleteMonAnConfirmationDialog(
     if (isOpen) {
         AlertDialog(
             onDismissRequest = onCancel,
-            title = { Text("Xác nhận xóa") },
-            text = { Text("Bạn có chắc chắn muốn xóa mục này không?") },
+            title = { Text("Thông Báo", color = Color.Black, modifier = Modifier.fillMaxWidth(1f).padding(start = 55.dp), fontSize = 25.sp, fontWeight = FontWeight.Bold) },
+            text = { Text("Bạn có chắc chắn muốn xóa món ăn này không?", color = Color.Black, modifier = Modifier, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center) },
             confirmButton = {
-                Button(
-                    onClick = {
-                        onConfirm()
-                        onCancel()
-                    }
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text("Xóa")
+                    Button(
+                        onClick = {
+                            onConfirm()
+                            onCancel()
+                        },
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color(0xFFFFB703),
+                            contentColor = Color.White
+                        ),
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Text("Xác nhận")
+                    }
+                    Spacer(modifier = Modifier.width(16.dp))
+                    Button(
+                        onClick = onCancel,
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color(0xFFFFB703),
+                            contentColor = Color.White
+                        ),
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Text("Hủy")
+                    }
                 }
             },
-            dismissButton = {
-                Button(onClick = onCancel) {
-                    Text("Hủy")
-                }
-            }
+            modifier = Modifier
+                .background(Color(0xFF252121))
+                .padding(16.dp)
         )
     }
 }

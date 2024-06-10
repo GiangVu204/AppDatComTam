@@ -6,7 +6,9 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
@@ -15,8 +17,16 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.PathEffect
+import androidx.compose.ui.graphics.TileMode
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -29,6 +39,7 @@ import com.example.appdatcomtam.Model.MonAnModel
 import com.example.appdatcomtam.Model.LoaiMonAnModel
 import com.example.appdatcomtam.ROUTE_NAME
 import com.example.appdatcomtam.LoaiMonAnDB
+import com.example.appdatcomtam.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -75,13 +86,62 @@ fun DialogSuaMonAn(navController: NavController?, monAn: MonAnModel?) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+//        Image dialog sua mon an
+        Box(
+            modifier = Modifier
+                .fillMaxWidth(0.45f)
+                .fillMaxHeight(0.25f)
+                .clickable { imagePickerLauncher.launch("image/*") }
+                .drawWithContent {
+                    drawRect(
+                        brush = Brush.horizontalGradient(
+                            colors = listOf(Color.Transparent, Color.Red, Color.Transparent),
+                            startX = 0f,
+                            endX = size.width,
+                            tileMode = TileMode.Repeated
+                        ),
+                        style = Stroke(
+                            width = 2.dp.toPx(),
+                            pathEffect = PathEffect.dashPathEffect(
+                                floatArrayOf(50f, 50f),
+                                0f
+                            )
+                        )
+                    )
+                    drawContent()
+                }
+                .background(color = Color.LightGray, shape = RoundedCornerShape(8.dp)),
+            contentAlignment = Alignment.CenterStart
+        ) {
+            if (imageUriState != null) {
+                Image(
+                    painter = rememberImagePainter(data = imageUriState),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize()
+                )
+            } else {
+                Image(
+                    painter = painterResource(id = R.drawable.image_dialog_sua_mon_an),
+                    contentDescription = "",
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.padding(top = 30.dp))
+
+        //Name mon an
+        Text(text = "Tên món ăn", Modifier.fillMaxWidth(), color = Color.White)
         OutlinedTextField(
             label = { Text("Tên món ăn", color = Color(0xFFFFB703)) },
             value = tenMonAnState,
             onValueChange = { tenMonAnState = it },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 8.dp),
+                .height(54.dp),
+            textStyle = TextStyle(fontSize = 13.sp),
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 focusedBorderColor = Color.White,
                 unfocusedBorderColor = Color.White,
@@ -92,6 +152,10 @@ fun DialogSuaMonAn(navController: NavController?, monAn: MonAnModel?) {
             )
         )
 
+        Spacer(modifier = Modifier.padding(5.dp))
+
+        //Gia mon an
+        Text(text = "Giá", Modifier.fillMaxWidth(), color = Color.White)
         OutlinedTextField(
             label = { Text("Giá món ăn", color = Color(0xFFFFB703)) },
             value = giaMonAnState,
@@ -99,7 +163,8 @@ fun DialogSuaMonAn(navController: NavController?, monAn: MonAnModel?) {
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 8.dp),
+                .height(54.dp),
+            textStyle = TextStyle(fontSize = 13.sp),
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 focusedBorderColor = Color.White,
                 unfocusedBorderColor = Color.White,
@@ -110,23 +175,27 @@ fun DialogSuaMonAn(navController: NavController?, monAn: MonAnModel?) {
             )
         )
 
+        Spacer(modifier = Modifier.padding(5.dp))
+
         // Spinner for loaiMonAn
+        Text(text = "Loại Món", Modifier.fillMaxWidth(), color = Color.White)
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 8.dp)
+                .height(50.dp)
         ) {
             var expanded by remember { mutableStateOf(false) }
             TextField(
                 value = loaiMonAnList.find { it.uid == selectedLoaiMonAnState }?.tenLoaiMonAn ?: "",
                 onValueChange = {},
                 readOnly = true,
-                label = { Text("Chọn loại món ăn", color = Color(0xFFFFB703)) },
+                label = { Text("Chọn loại món ăn", color = Color(0xFFFFB703), fontSize = 10.sp) },
                 trailingIcon = {
                     IconButton(onClick = { expanded = true }) {
                         Icon(Icons.Default.ArrowDropDown, contentDescription = "DropDown")
                     }
                 },
+                modifier = Modifier.fillMaxWidth(),
                 colors = TextFieldDefaults.textFieldColors(
                     disabledTextColor = Color.Black,
                     focusedIndicatorColor = Color.Transparent,
@@ -149,32 +218,7 @@ fun DialogSuaMonAn(navController: NavController?, monAn: MonAnModel?) {
             }
         }
 
-        // Image Picker Button
-        Button(
-            onClick = { imagePickerLauncher.launch("image/*") },
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFFFFB703),
-                contentColor = Color.White
-            ),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(50.dp)
-                .padding(bottom = 8.dp)
-        ) {
-            Text("Chọn ảnh", fontSize = 16.sp)
-        }
-
-        // Display selected image
-        imageUriState?.let { uri ->
-            Image(
-                painter = rememberImagePainter(data = uri),
-                contentDescription = null,
-                modifier = Modifier
-                    .size(200.dp)
-                    .padding(8.dp)
-            )
-        }
-
+        Spacer(modifier = Modifier.padding(25.dp))
 
         // Update MonAn button
         Button(
@@ -203,11 +247,11 @@ fun DialogSuaMonAn(navController: NavController?, monAn: MonAnModel?) {
                 contentColor = Color.White
             ),
             modifier = Modifier
-                .fillMaxWidth()
-                .height(50.dp)
+                .fillMaxWidth(0.4f)
+                .height(55.dp)
                 .padding(top = 16.dp)
         ) {
-            Text("Cập nhật", fontSize = 16.sp)
+            Text("Lưu", fontSize = 16.sp)
         }
     }
 }
