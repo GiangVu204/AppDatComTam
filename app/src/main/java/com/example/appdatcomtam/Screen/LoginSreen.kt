@@ -8,7 +8,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
-import android.content.Context
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -22,15 +21,15 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.appdatcomtam.Screen.HomeScreen
+
 import com.example.appdatcomtam.Screen.ScreenAdim.HomeAdminScreen
+import com.example.appdatcomtam.Screen.ScreenUser.HomeUser
 import com.example.appdatcomtam.Screen.SignUpScreen
 
 @Preview(showBackground = true)
@@ -171,7 +170,7 @@ fun LoginScreen(
                             LaunchedEffect(loginState) {
                                 when (userRole) {
                                     UserRole.ADMIN -> navController?.navigate("Home")
-                                    UserRole.USER -> navController?.navigate("Home")
+                                    UserRole.USER -> navController?.navigate("HomeUser")
                                 }
                             }
                         }
@@ -182,7 +181,6 @@ fun LoginScreen(
         }
     }
 }
-
 @Composable
 fun NavGraph(navController: NavHostController) {
     NavHost(navController = navController, startDestination = "login") {
@@ -190,16 +188,6 @@ fun NavGraph(navController: NavHostController) {
         composable("signup") { SignUpScreen(navController) }
         composable("Home") { HomeScreen(navController) }
         composable("HomeAdmin") { HomeAdminScreen(navController) }
-    }
-}
-
-// ViewModel Factory
-class LoginViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return LoginViewModel(context) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
+        composable("HomeUser") { HomeUser(navController) }
     }
 }
