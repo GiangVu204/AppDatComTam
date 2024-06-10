@@ -2,46 +2,18 @@ package com.example.appdatcomtam.Screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.ShoppingCart
-import androidx.compose.material.icons.outlined.AccountCircle
-import androidx.compose.material.icons.outlined.FavoriteBorder
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.Notifications
-import androidx.compose.material.icons.outlined.Person
-import androidx.compose.material.icons.outlined.ShoppingCart
-import androidx.compose.material.icons.sharp.Search
-import androidx.compose.material.icons.sharp.ShoppingCart
-import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.outlined.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
@@ -59,9 +31,7 @@ import com.example.appdatcomtam.Screen.ScreenAdim.ManageDishScreen
 import com.example.appdatcomtam.Screen.ScreenAdim.ManagerScreen
 import com.example.appdatcomtam.Screen.ScreenAdim.ShowBillScreen
 
-
 @OptIn(ExperimentalMaterial3Api::class)
-
 @Composable
 fun HomeScreen(navController: NavController? = null) {
     val navigationController = rememberNavController()
@@ -76,29 +46,16 @@ fun HomeScreen(navController: NavController? = null) {
                     titleContentColor = Color.White
                 ),
                 title = {
-//                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-//                        Column {
-//                            if (selected.value == "home") {
-//                                title = ""
-//                               // Text("Make Your", color = Color.Gray, fontSize = 10.sp, modifier = Modifier.padding(start = 10.dp))
-//
-//                            }else{
-//                                Text(title)
-//                            }
-//                        }
-//                    }
-
-                    Text("Cum Tứm Dim ", color = Color.White,fontSize = 17.sp, fontWeight = FontWeight.Bold)
+                    Text("Cum Tứm Dim ", color = Color.White, fontSize = 17.sp, fontWeight = FontWeight.Bold)
                 },
                 navigationIcon = {
-                  Image(painter = painterResource(id = R.drawable.logo_splash),
-                      contentDescription = "kkk",
-                      modifier = Modifier
-                          .size(70.dp)
-                          .padding(10.dp)
-                      )
+                    Image(painter = painterResource(id = R.drawable.logo_splash),
+                        contentDescription = "kkk",
+                        modifier = Modifier
+                            .size(70.dp)
+                            .padding(10.dp)
+                    )
                 },
-
             )
         },
         bottomBar = {
@@ -135,10 +92,9 @@ fun MyBottomAppBar(navigationController: NavHostController, selected: MutableSta
                     imageVector = if (selected.value == "home") Icons.Filled.Home else Icons.Outlined.Home,
                     contentDescription = "Home",
                     modifier = Modifier.size(26.dp),
-                    tint = if (selected.value == "home")  Color("#FFB703".toColorInt()) else Color.White
-                    
+                    tint = if (selected.value == "home") Color("#FFB703".toColorInt()) else Color.White
                 )
-                Text(text = "Trang Chủ",  color = if (selected.value == "home") Color("#FFB703".toColorInt()) else Color.White,fontSize = 11.sp)
+                Text(text = "Trang Chủ", color = if (selected.value == "home") Color("#FFB703".toColorInt()) else Color.White, fontSize = 11.sp)
             }
         }
         IconButton(
@@ -155,10 +111,9 @@ fun MyBottomAppBar(navigationController: NavHostController, selected: MutableSta
                     imageVector = if (selected.value == "shoppingCall") Icons.Filled.ShoppingCart else Icons.Outlined.ShoppingCart,
                     contentDescription = "ShoppingCall",
                     modifier = Modifier.size(26.dp),
-                    tint = if (selected.value == "shoppingCall")  Color("#FFB703".toColorInt()) else Color.White
+                    tint = if (selected.value == "shoppingCall") Color("#FFB703".toColorInt()) else Color.White
                 )
-                Text(text = "Thống Kê",  color = if (selected.value == "shoppingCall") Color("#FFB703".toColorInt())else Color.White,fontSize = 11.sp)
-
+                Text(text = "Thống Kê", color = if (selected.value == "shoppingCall") Color("#FFB703".toColorInt()) else Color.White, fontSize = 11.sp)
             }
         }
         IconButton(
@@ -175,10 +130,9 @@ fun MyBottomAppBar(navigationController: NavHostController, selected: MutableSta
                     imageVector = if (selected.value == "notifications") Icons.Filled.Notifications else Icons.Outlined.Notifications,
                     contentDescription = "Notifications",
                     modifier = Modifier.size(26.dp),
-                    tint = if (selected.value == "notifications")  Color("#FFB703".toColorInt()) else Color.White
+                    tint = if (selected.value == "notifications") Color("#FFB703".toColorInt()) else Color.White
                 )
-                Text(text = "Quản Lý",  color = if (selected.value == "notifications") Color("#FFB703".toColorInt()) else Color.White,fontSize = 11.sp)
-
+                Text(text = "Quản Lý", color = if (selected.value == "notifications") Color("#FFB703".toColorInt()) else Color.White, fontSize = 11.sp)
             }
         }
         IconButton(
@@ -195,10 +149,9 @@ fun MyBottomAppBar(navigationController: NavHostController, selected: MutableSta
                     imageVector = if (selected.value == "profile") Icons.Filled.Person else Icons.Outlined.Person,
                     contentDescription = "Profile",
                     modifier = Modifier.size(26.dp),
-                    tint = if (selected.value == "profile")  Color("#FFB703".toColorInt()) else Color.White
+                    tint = if (selected.value == "profile") Color("#FFB703".toColorInt()) else Color.White
                 )
-                Text(text = "Hỗ Trợ",  color = if (selected.value == "profile") Color("#FFB703".toColorInt()) else Color.White,fontSize = 11.sp)
-
+                Text(text = "Hỗ Trợ", color = if (selected.value == "profile") Color("#FFB703".toColorInt()) else Color.White, fontSize = 11.sp)
             }
         }
     }
@@ -206,6 +159,6 @@ fun MyBottomAppBar(navigationController: NavHostController, selected: MutableSta
 
 @Composable
 @Preview(showBackground = true)
-fun PreviewHomeScreen(){
+fun PreviewHomeScreen() {
     HomeScreen()
 }
