@@ -25,6 +25,7 @@ import com.example.appdatcomtam.Screen.ScreenAdim.QLSanPham.DeleteMonAnScreen
 import com.example.appdatcomtam.Screen.ScreenAdim.QLSanPham.DialogSuaMonAn
 import com.example.appdatcomtam.Screen.ScreenAdim.QLSanPham.UpdateMonAnScreen
 import com.example.appdatcomtam.Screen.ScreenAdim.ShowBillScreen
+import com.example.appdatcomtam.Screen.ScreenUser.HomeUser
 import com.example.appdatcomtam.Screen.SignUpScreen
 import com.example.appdatcomtam.Screen.UserScreen
 
@@ -38,6 +39,7 @@ enum class ROUTE_NAME {
     homeAdmin,
     detaildonhang,
     showbill,
+    HomeUser,
     manager,
     managerCategories,
     managerDish,
@@ -70,6 +72,9 @@ fun AppNavHost(
         }
         composable(ROUTE_NAME.login.name) {
             LoginScreen(navController)
+        }
+        composable(ROUTE_NAME.HomeUser.name) {
+           HomeUser(navController)
         }
         composable(ROUTE_NAME.signup.name) {
             SignUpScreen(navController)

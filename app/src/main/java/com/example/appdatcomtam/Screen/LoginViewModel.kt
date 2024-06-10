@@ -64,7 +64,7 @@ class LoginViewModel(context: Context) : ViewModel() {
                 _loginState.value = LoginState.Success
             } else if (_username.value.isEmpty() && _password.value.isEmpty()) {
                 _loginState.value =
-                    LoginState.Error("Bạn không được để Trống username hoặc password")
+                    LoginState.Error("Bạn không được để trống username hoặc password")
             } else if (_username.value.isEmpty()) {
                 _loginState.value = LoginState.Error("Bạn không được để trống username")
             } else if (_password.value.isEmpty()) {
